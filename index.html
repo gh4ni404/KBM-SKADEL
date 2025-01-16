@@ -18,13 +18,14 @@
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h3 class="text-center mb-4">LAPORAN KBM HARIAN SMKN 8 BONE</h3>
-        <h4 class="text-center mb-4" id="date">Tanggal</h4>
+        <h4 class="text-center mb-4" id="date"></h4>
         <h4 class="text-center mb-4" id="packageName"></h4>
         <br>
         <br>
         <br>
         <br>
-        <table id="example" class="table table-striped table-bordered mt-2 mb-2" style="width: 100%"></table>
+        <table id="example" class="table table-striped table-bordered text-center align-middle mt-2 mb-2"
+          style="width: 100%"></table>
         <br />
         <br />
         <p id="passingGrade"></p>
@@ -43,95 +44,161 @@
     $(document).ready(function () {
       const url = "https://script.google.com/macros/s/AKfycbzCpzS8CsT6KGjyC4DpS2XFFO68BHYWnfB6vhH7hGFUPv4o59zFEHljOkKPQUV_xLHdsg/exec";
 
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          const rawDate = new Date(data.tanggal);
-          const options = {
-            weekday: 'long',
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric',
-          };
-          const formattedDate = rawDate.toLocaleDateString('id-ID', options);
-          document.getElementById("date").textContent = `Tanggal: ${formattedDate}`;
-        })
-      $("#example").DataTable({
-        ajax: "https://script.google.com/macros/s/AKfycbzCpzS8CsT6KGjyC4DpS2XFFO68BHYWnfB6vhH7hGFUPv4o59zFEHljOkKPQUV_xLHdsg/exec",
-        columns: [
-          {
-            title: "NO",
-            data: "1",
-          },
-          {
-            title: "KELAS",
-            data: "2",
-          },
-          {
-            title: "MATA PELAJARAN",
-            data: "3",
-          },
-          {
-            title: "NAMA GURU MAPEL",
-            data: "4",
-          },
-          {
-            title: "MULAI JAM KE",
-            data: "5",
-          },
-          {
-            title: "JUMLAH JAM",
-            data: "6",
-          },
-          {
-            title: "NAMA WALI KELAS",
-            data: "7",
-          },
-          {
-            title: "HADIR",
-            data: "8",
-          },
-          {
-            title: "SAKIT",
-            data: "9",
-          },
-          {
-            title: "IZIN",
-            data: "10",
-          },
-          {
-            title: "ALPA",
-            data: "11",
-          },
-          {
-            title: "KONDISI KELAS",
-            data: "12",
-          },
-          {
-            title: "DOKUMENTASI 1",
-            data: "13",
-          },
-          {
-            title: "DOKUMENTASI 2",
-            data: "14",
-          },
-          {
-            title: "DOKUMENTASI 3",
-            data: "15",
-          },
-          {
-            title: "DOKUMENTASI 4",
-            data: "16",
-          },
-          {
-            title: "PIKET PENGGANTI",
-            data: "17",
-          }
+      function fetchData() {
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            const rawDate = new Date(data.tanggal);
+            const options = {
+              weekday: 'long',
+              day: '2-digit',
+              month: 'long',
+              year: 'numeric',
+            };
+            const formattedDate = rawDate.toLocaleDateString('id-ID', options);
+            document.getElementById("date").textContent = `${formattedDate}`;
 
-        ],
-        rowId: "KELAS",
-        liveAjax: true,
-      });
+            if ($.fn.DataTable.isDataTable("#example")) {
+              $("#example").DataTable().destroy();
+            }
+
+            $("#example").empty();
+
+            $("#example").DataTable({
+              ajax: url,
+              columns: [
+                {
+                  title: "NO",
+                  data: "1",
+                },
+                {
+                  title: "KELAS",
+                  data: "2",
+                },
+                {
+                  title: "MATA PELAJARAN",
+                  data: "3",
+                  render: function (data, type, row) {
+                    if (data === "?" || !data) {
+                      return "Tidak Ada Mata Pelajaran";
+
+                    }
+                    return data;
+                  },
+                },
+                {
+                  title: "NAMA GURU MAPEL",
+                  data: "4",
+                },
+                {
+                  title: "MULAI JAM KE",
+                  data: "5",
+                  render: function (data, type, row) {
+                    if (data === "?" || !data) {
+                      return "Tidak Ada Jam";
+                    }
+                    return data;
+                  },
+                },
+                {
+                  title: "JUMLAH JAM",
+                  data: "6",
+                  render: function (data, type, row) {
+                    if (data === "?" || !data) {
+                      return "Tidak Ada Jam";
+                    }
+                    return data;
+                  },
+                },
+                {
+                  title: "NAMA WALI KELAS",
+                  data: "7",
+                },
+                {
+                  title: "HADIR",
+                  data: "8",
+                },
+                {
+                  title: "SAKIT",
+                  data: "9",
+                },
+                {
+                  title: "IZIN",
+                  data: "10",
+                },
+                {
+                  title: "ALPA",
+                  data: "11",
+                },
+                {
+                  title: "KONDISI KELAS",
+                  data: "12",
+                },
+                {
+                  title: "DOKUMENTASI 1",
+                  data: "13",
+                  render: function (data, type, row) {
+                    if (data === "?" || !data) {
+                      return "Tidak Ada Dokumentasi";
+                    }
+                    return data
+                      ? `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`
+                      : "Tidak Ada Dokumentasi";
+                  },
+                },
+                {
+                  title: "DOKUMENTASI 2",
+                  data: "14",
+                  render: function (data, type, row) {
+                    if (data === "?" || !data) {
+                      return "Tidak Ada Dokumentasi";
+                    }
+                    return data
+                      ? `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`
+                      : "Tidak Ada Dokumentasi";
+                  },
+                },
+                {
+                  title: "DOKUMENTASI 3",
+                  data: "15",
+                  render: function (data, type, row) {
+                    if (data === "?" || !data) {
+                      return "Tidak Ada Dokumentasi";
+                    }
+                    return data
+                      ? `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`
+                      : "Tidak Ada Dokumentasi";
+                  },
+                },
+                {
+                  title: "DOKUMENTASI 4",
+                  data: "16",
+                  render: function (data, type, row) {
+                    if (data === "?" || !data) {
+                      return "Tidak Ada Dokumentasi";
+                    }
+                    return data
+                      ? `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`
+                      : "Tidak Ada Dokumentasi";
+                  },
+                },
+                {
+                  title: "PIKET PENGGANTI",
+                  data: "17",
+                }
+
+              ],
+              rowId: "KELAS",
+              liveAjax: true,
+            });
+          }).catch(error => {
+            console.error("Ada yang salah nih BOSKUU:", error);
+            swal("Error", "Terjadi kesalahan saat mengambil data", "error");
+          });
+      }
+      fetchData();
+
+      setInterval(fetchData, 60000);
     });
   </script>
   </body>

@@ -79,42 +79,22 @@
                   {
                     title: "MATA PELAJARAN",
                     data: "4",
-                    render: function (data, type, row) {
-                      if (data === "?" || !data) {
-                        return msg;
-                      }
-                      return data;
-                    },
+
                   },
                   {
                     title: "MULAI JAM KE",
                     data: "5",
-                    render: function (data, type, row) {
-                      if (data === "?" || !data) {
-                        return msg;
-                      }
-                      return data;
-                    },
+
                   },
                   {
                     title: "JUMLAH JAM",
                     data: "6",
-                    render: function (data, type, row) {
-                      if (data === "?" || !data) {
-                        return msg;
-                      }
-                      return data;
-                    },
+
                   },
                   {
                     title: "NAMA WALI KELAS",
                     data: "7",
-                    render: function (data, type, row) {
-                      if (data === "?" || !data) {
-                        return "Belum Ada Data yang di input";
-                      }
-                      return data
-                    }
+
                   },
                   {
                     title: "HADIR",
@@ -141,7 +121,7 @@
                     data: "13",
                     render: function (data, type, row) {
                       if (data === "?" || !data) {
-                        return msg;
+                        return "?";
                       }
                       return `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`;
                     },
@@ -151,7 +131,7 @@
                     data: "14",
                     render: function (data, type, row) {
                       if (data === "?" || !data) {
-                        return msg;
+                        return "?";
                       }
                       return `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`;
                     },
@@ -161,7 +141,7 @@
                     data: "15",
                     render: function (data, type, row) {
                       if (data === "?" || !data) {
-                        return msg;
+                        return "?";
                       }
                       return `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`;
                     },

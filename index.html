@@ -57,16 +57,13 @@
 
       function fetchData(day = "") {
         let url = baseUrl;
-        console.log("URL yang akan dipanggil: ", url);
         if (day) {
           url += `?day=${day}`;
-          console.log(`Data hari ${day} diambil`);
         }
 
         fetch(url)
           .then(response => response.json())
           .then(data => {
-            console.log(`Data hari ${day} berhasil diambil:`, data);
 
             // Tampilkan tanggal jika data ada
             const rawDate = new Date(data.tanggal);
@@ -165,7 +162,6 @@
                   let hasNoData = false;
 
                   $('td', row).each(function (index, cell) {
-                    console.log("Memeriksa sel: ", $(cell).text());
                     if ($(cell).text() === "?") {
                       hasNoData = true;
                     }
@@ -207,7 +203,6 @@
 
       setInterval(() => {
         fetchData($("#dayFilter").val());
-        console.log(`Data diperbarui {fetchData}`);
       }, 60000);
     });
   </script>

@@ -11,7 +11,7 @@
     href="https://cdn.datatables.net/fixedheader/3.2.0/css/fixedHeader.bootstrap.min.css" />
   <link rel="stylesheet" type="text/css"
     href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
-  <title>Daftar Mahasiswa</title>
+  <title>KBM SKADEL</title>
 </head>
 
 <body>
@@ -21,8 +21,7 @@
         <h3 class="text-center mb-4">LAPORAN KBM HARIAN SMKN 8 BONE</h3>
         <div class="form-group">
           <label for="dayFilter">Pilih Hari :</label>
-          <select name="" id="dayFilter" class="form-control">
-            <option value="">Semua Hari</option>
+          <select id="dayFilter" class="form-control">
             <option value="SENIN">Senin</option>
             <option value="SELASA">Selasa</option>
             <option value="RABU">Rabu</option>
@@ -54,19 +53,27 @@
   <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <!-- <script type="text/javascript" src="data.json"></script> -->
+
   <script type="text/javascript">
     $(document).ready(function () {
       const baseUrl = "https://script.google.com/macros/s/AKfycbwxxDPptmg0b4BlIJJ-pie4POoeMIJjQGFEsHj7oAHHTU3YEEK9c2CCQb1n2D4UxB5YOg/exec";
+      const days = ["MINGGU", "SENIN", "SELASA", "RABU", "KAMIS", "JUMAT", "SABTU"];
+      let table;
 
       function fetchData(day = "") {
         let url = baseUrl;
+        console.log("URL yang akan dipanggil: ", url);
         if (day) {
           url += `?day=${day}`;
+          console.log(`Data hari ${day} diambil`);
         }
 
         fetch(url)
           .then(response => response.json())
           .then(data => {
+            console.log(`Data hari ${day} berhasil diambil:`, data);
+
+            // Tampilkan tanggal jika data ada
             const rawDate = new Date(data.tanggal);
             const options = {
               weekday: 'long',
@@ -77,9 +84,11 @@
             const formattedDate = rawDate.toLocaleDateString('id-ID', options);
             document.getElementById("date").textContent = `${formattedDate}`;
 
-            if (!$.fn.DataTable.isDataTable("#example")) {
+            // Memastikan jika DataTable sudah diinisialisasi
+            // if (!$.fn.DataTable.isDataTable("#example")) {
+            if (!table) {
               // Filter data berdasarkan hari
-              let table = $("#example").DataTable({
+              table = $("#example").DataTable({
                 ajax: url,
                 lengthMenu: [[-1, 10, 25, 50], ["All", 10, 25, 50]], // Tambahkan opsi "All" dengan nilai -1
                 pageLength: -1, // Tampilkan semua data secara default
@@ -93,16 +102,16 @@
                     data: "2",
                   },
                   {
-                    title: "NAMA GURU MAPEL",
+                    title: "MULAI JAM KE",
                     data: "3",
                   },
                   {
-                    title: "MATA PELAJARAN",
+                    title: "NAMA GURU MAPEL",
                     data: "4",
 
                   },
                   {
-                    title: "MULAI JAM KE",
+                    title: "MATA PELAJARAN",
                     data: "5",
 
                   },
@@ -139,42 +148,22 @@
                   {
                     title: "DOKUMENTASI 1",
                     data: "13",
-                    render: function (data, type, row) {
-                      if (data === "?" || !data) {
-                        return "?";
-                      }
-                      return `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`;
-                    },
+                    render: renderDoc
                   },
                   {
                     title: "DOKUMENTASI 2",
                     data: "14",
-                    render: function (data, type, row) {
-                      if (data === "?" || !data) {
-                        return "?";
-                      }
-                      return `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`;
-                    },
+                    render: renderDoc
                   },
                   {
                     title: "DOKUMENTASI 3",
                     data: "15",
-                    render: function (data, type, row) {
-                      if (data === "?" || !data) {
-                        return "?";
-                      }
-                      return `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`;
-                    },
+                    render: renderDoc
                   },
                   {
                     title: "DOKUMENTASI 4",
                     data: "16",
-                    render: function (data, type, row) {
-                      if (data === "?" || !data) {
-                        return "?";
-                      }
-                      return `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`;
-                    },
+                    render: renderDoc
                   },
                   {
                     title: "PIKET PENGGANTI",
@@ -186,22 +175,37 @@
                 liveAjax: true,
               });
             } else {
-              $("#example").DataTable().ajax.reload(null, false);
+              // $("#example").DataTable().ajax.reload(null, false);
+              table.clear();
+              table.rows.add(data.data).draw();
             }
           }).catch(error => {
             console.error("Ada yang salah nih BOSKUU:", error);
             swal("Error", "Terjadi kesalahan saat mengambil data", "error");
           });
+
       }
+
+      function renderDoc(data) {
+        return data === "?" || !data ? "?" : `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`;
+      }
+
+      function setDefaultDay() {
+        const today = new Date().getDay();
+        const defaultDay = days[today];
+        $("#dayFilter").val(defaultDay).trigger("change");
+      }
+
       fetchData();
 
+      setDefaultDay();
       $("#dayFilter").change(function () {
-        const selectedDay = $(this).val();
-        fetchData(selectedDay);
+        fetchData($(this).val());
       });
 
       setInterval(() => {
         fetchData($("#dayFilter").val());
+        console.log(`Data diperbarui {fetchData}`);
       }, 60000);
     });
   </script>

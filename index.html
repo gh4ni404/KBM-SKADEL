@@ -63,6 +63,8 @@
             if (!$.fn.DataTable.isDataTable("#example")) {
               $("#example").DataTable({
                 ajax: url,
+                lengthMenu: [[-1, 10, 25, 50], ["All", 10, 25, 50]], // Tambahkan opsi "All" dengan nilai -1
+                pageLength: -1, // Tampilkan semua data secara default
                 columns: [
                   {
                     title: "NO",

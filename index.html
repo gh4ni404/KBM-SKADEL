@@ -75,20 +75,20 @@
                   title: "KELAS",
                   data: "2",
                 },
+
+                {
+                  title: "NAMA GURU MAPEL",
+                  data: "3",
+                },
                 {
                   title: "MATA PELAJARAN",
-                  data: "3",
+                  data: "4",
                   render: function (data, type, row) {
                     if (data === "?" || !data) {
                       return "Tidak Ada Mata Pelajaran";
-
                     }
                     return data;
                   },
-                },
-                {
-                  title: "NAMA GURU MAPEL",
-                  data: "4",
                 },
                 {
                   title: "MULAI JAM KE",
@@ -113,6 +113,12 @@
                 {
                   title: "NAMA WALI KELAS",
                   data: "7",
+                  render: function (data, type, row) {
+                    if (data === "?" || !data) {
+                      return "Tidak Ada Nama Wali Kelas";
+                    }
+                    return data
+                  }
                 },
                 {
                   title: "HADIR",

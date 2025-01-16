@@ -18,6 +18,7 @@
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h3 class="text-center mb-4">LAPORAN KBM HARIAN SMKN 8 BONE</h3>
+        <h4 class="text-center mb-4" id="date">Tanggal</h4>
         <h4 class="text-center mb-4" id="packageName"></h4>
         <br>
         <br>
@@ -40,6 +41,21 @@
   <!-- <script type="text/javascript" src="data.json"></script> -->
   <script type="text/javascript">
     $(document).ready(function () {
+      const url = "https://script.google.com/macros/s/AKfycbzCpzS8CsT6KGjyC4DpS2XFFO68BHYWnfB6vhH7hGFUPv4o59zFEHljOkKPQUV_xLHdsg/exec";
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const rawDate = new Date(data.tanggal);
+          const options = {
+            weekday: 'long',
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric',
+          };
+          const formattedDate = rawDate.toLocaleDateString('id-ID', options);
+          document.getElementById("date").textContent = `Tanggal: ${formattedDate}`;
+        })
       $("#example").DataTable({
         ajax: "https://script.google.com/macros/s/AKfycbzCpzS8CsT6KGjyC4DpS2XFFO68BHYWnfB6vhH7hGFUPv4o59zFEHljOkKPQUV_xLHdsg/exec",
         columns: [
@@ -111,7 +127,7 @@
             title: "PIKET PENGGANTI",
             data: "17",
           }
-          
+
         ],
         rowId: "KELAS",
         liveAjax: true,

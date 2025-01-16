@@ -16,30 +16,24 @@
 <body>
 
   <div class="sticky-top bg-primary p-5">
-    <div class="row">
-      <div class="col-lg col-md col-sm col-xs">
-        <h3 class="text-center mb-4">LAPORAN KBM HARIAN SMKN 8 BONE</h3>
-      </div>
-      <div class="form-group ">
-        <label for="dayFilter">Pilih Hari :</label>
-        <select id="dayFilter" class="form-control">
-          <option value="SENIN">Senin</option>
-          <option value="SELASA">Selasa</option>
-          <option value="RABU">Rabu</option>
-          <option value="KAMIS">Kamis</option>
-          <option value="JUMAT">Jumat</option>
-          <option value="SABTU">Sabtu</option>
-          <option value="MINGGU">Minggu</option>
-        </select>
-      </div>
+    <h3 class="text-center mb-4">LAPORAN KBM HARIAN SMKN 8 BONE</h3>
+    <div class="form-floating w-50 mx-auto">
+      <select id="floatingSelect" class="form-select" aria-label="Floating label select example">
+        <option value="SENIN">Senin</option>
+        <option value="SELASA">Selasa</option>
+        <option value="RABU">Rabu</option>
+        <option value="KAMIS">Kamis</option>
+        <option value="JUMAT">Jumat</option>
+        <option value="SABTU">Sabtu</option>
+        <option value="MINGGU">Minggu</option>
+      </select>
+      <label for="floatingSelect">Pilih Hari :</label>
     </div>
+    <h4 class="text-center mt-4" id="date"></h4>
   </div>
 
-  <div class="container">
-    <h4 class="text-center mb-4" id="date"></h4>
-    <table id="example" class="table table-bordered text-center align-middle mt-2 mb-2" style="width: 100%"></table>
-    <br />
-    <br />
+  <div class="table-responsive mt-4 p-3">
+    <table id="example" class="table table-bordered align-middle mt-2 mb-2" style="width: 100%"></table>
     <p id="passingGrade"></p>
   </div>
 
@@ -85,10 +79,6 @@
                 pageLength: -1, // Tampilkan semua data secara default
                 columns: [
                   {
-                    title: "NO",
-                    data: "1",
-                  },
-                  {
                     title: "KELAS",
                     data: "2",
                   },
@@ -99,7 +89,6 @@
                   {
                     title: "NAMA GURU MAPEL",
                     data: "4",
-
                   },
                   {
                     title: "MATA PELAJARAN",
@@ -108,7 +97,6 @@
                   {
                     title: "NAMA WALI KELAS",
                     data: "6",
-
                   },
                   {
                     title: "HADIR",
@@ -155,6 +143,40 @@
                     data: "16",
                   }
                 ],
+                columnDefs: [
+                  {
+                    targets: [1],
+                    className: "text-center",
+                    width: "2%",
+                  },
+                  {
+                    targets: [5],
+                    className: "text-center",
+                    width: "2%",
+                  },
+                  {
+                    targets: [6],
+                    className: "text-center",
+                    width: "2%",
+                  },
+                  {
+                    targets: [7],
+                    className: "text-center",
+                    width: "2%",
+                  },
+                  {
+                    targets: [8],
+                    className: "text-center",
+                    width: "2%",
+                  },
+                  {
+                    targets: [9],
+                    width: "20px",
+                  },
+                ],
+                order: [
+                  [1, "asc"]
+                ],
                 rowId: "KELAS",
                 liveAjax: true,
                 createdRow: function (row, data, dataIndex) {
@@ -191,18 +213,18 @@
       function setDefaultDay() {
         const today = new Date().getDay();
         const defaultDay = days[today];
-        $("#dayFilter").val(defaultDay).trigger("change");
+        $("#floatingSelect").val(defaultDay).trigger("change");
       }
 
       fetchData();
 
       setDefaultDay();
-      $("#dayFilter").change(function () {
+      $("#floatingSelect").change(function () {
         fetchData($(this).val());
       });
 
       setInterval(() => {
-        fetchData($("#dayFilter").val());
+        fetchData($("#floatingSelect").val());
       }, 60000);
     });
   </script>

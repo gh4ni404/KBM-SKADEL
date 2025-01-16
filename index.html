@@ -37,8 +37,7 @@
         <br>
         <br>
         <br>
-        <table id="example" class="table table-striped table-bordered text-center align-middle mt-2 mb-2"
-          style="width: 100%"></table>
+        <table id="example" class="table table-bordered text-center align-middle mt-2 mb-2" style="width: 100%"></table>
         <br />
         <br />
         <p id="passingGrade"></p>
@@ -119,59 +118,55 @@
                     data: "5",
 
                   },
+
                   {
-                    title: "JUMLAH JAM",
+                    title: "NAMA WALI KELAS",
                     data: "6",
 
                   },
                   {
-                    title: "NAMA WALI KELAS",
-                    data: "7",
-
-                  },
-                  {
                     title: "HADIR",
-                    data: "8",
+                    data: "7",
                   },
                   {
                     title: "SAKIT",
-                    data: "9",
+                    data: "8",
                   },
                   {
                     title: "IZIN",
-                    data: "10",
+                    data: "9",
                   },
                   {
                     title: "ALPA",
-                    data: "11",
+                    data: "10",
                   },
                   {
                     title: "KONDISI KELAS",
-                    data: "12",
+                    data: "11",
                   },
                   {
                     title: "DOKUMENTASI 1",
-                    data: "13",
+                    data: "12",
                     render: renderDoc
                   },
                   {
                     title: "DOKUMENTASI 2",
-                    data: "14",
+                    data: "13",
                     render: renderDoc
                   },
                   {
                     title: "DOKUMENTASI 3",
-                    data: "15",
+                    data: "14",
                     render: renderDoc
                   },
                   {
                     title: "DOKUMENTASI 4",
-                    data: "16",
+                    data: "15",
                     render: renderDoc
                   },
                   {
                     title: "PIKET PENGGANTI",
-                    data: "17",
+                    data: "16",
                   }
 
                 ],
@@ -181,13 +176,16 @@
                   // Periksa Semua sel dalam Menu
                   let hasNoData = false;
 
-                  $('td', row).each(function(index, cell){
-                    if($(cell).text()==="?") {
+                  $('td', row).each(function (index, cell) {
+                    console.log("Memeriksa sel: ", $(cell).text());
+                    if ($(cell).text() === "?") {
                       hasNoData = true;
                     }
                   });
                   if (hasNoData) {
                     $(row).addClass('bg-danger');
+                  } else {
+                    $(row).removeClass('bg-danger');
                   }
                 },
               });

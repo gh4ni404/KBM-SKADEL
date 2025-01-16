@@ -13,7 +13,8 @@
     href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
   <title>Daftar Mahasiswa</title>
 </head>
-<body">
+
+<body>
   <div class="container">
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -43,6 +44,7 @@
   <script type="text/javascript">
     $(document).ready(function () {
       const url = "https://script.google.com/macros/s/AKfycbwxxDPptmg0b4BlIJJ-pie4POoeMIJjQGFEsHj7oAHHTU3YEEK9c2CCQb1n2D4UxB5YOg/exec";
+      const msg = "Data Belum Di input";
 
       function fetchData() {
         fetch(url)
@@ -58,145 +60,134 @@
             const formattedDate = rawDate.toLocaleDateString('id-ID', options);
             document.getElementById("date").textContent = `${formattedDate}`;
 
-            if ($.fn.DataTable.isDataTable("#example")) {
-              $("#example").DataTable().destroy();
-            }
-
-            $("#example").empty();
-
-            $("#example").DataTable({
-              ajax: url,
-              columns: [
-                {
-                  title: "NO",
-                  data: "1",
-                },
-                {
-                  title: "KELAS",
-                  data: "2",
-                },
-
-                {
-                  title: "NAMA GURU MAPEL",
-                  data: "3",
-                },
-                {
-                  title: "MATA PELAJARAN",
-                  data: "4",
-                  render: function (data, type, row) {
-                    if (data === "?" || !data) {
-                      return "Tidak Ada Mata Pelajaran";
-                    }
-                    return data;
+            if (!$.fn.DataTable.isDataTable("#example")) {
+              $("#example").DataTable({
+                ajax: url,
+                columns: [
+                  {
+                    title: "NO",
+                    data: "1",
                   },
-                },
-                {
-                  title: "MULAI JAM KE",
-                  data: "5",
-                  render: function (data, type, row) {
-                    if (data === "?" || !data) {
-                      return "Tidak Ada Jam";
-                    }
-                    return data;
+                  {
+                    title: "KELAS",
+                    data: "2",
                   },
-                },
-                {
-                  title: "JUMLAH JAM",
-                  data: "6",
-                  render: function (data, type, row) {
-                    if (data === "?" || !data) {
-                      return "Tidak Ada Jam";
-                    }
-                    return data;
+                  {
+                    title: "NAMA GURU MAPEL",
+                    data: "3",
                   },
-                },
-                {
-                  title: "NAMA WALI KELAS",
-                  data: "7",
-                  render: function (data, type, row) {
-                    if (data === "?" || !data) {
-                      return "Tidak Ada Nama Wali Kelas";
+                  {
+                    title: "MATA PELAJARAN",
+                    data: "4",
+                    render: function (data, type, row) {
+                      if (data === "?" || !data) {
+                        return msg;
+                      }
+                      return data;
+                    },
+                  },
+                  {
+                    title: "MULAI JAM KE",
+                    data: "5",
+                    render: function (data, type, row) {
+                      if (data === "?" || !data) {
+                        return msg;
+                      }
+                      return data;
+                    },
+                  },
+                  {
+                    title: "JUMLAH JAM",
+                    data: "6",
+                    render: function (data, type, row) {
+                      if (data === "?" || !data) {
+                        return msg;
+                      }
+                      return data;
+                    },
+                  },
+                  {
+                    title: "NAMA WALI KELAS",
+                    data: "7",
+                    render: function (data, type, row) {
+                      if (data === "?" || !data) {
+                        return "Belum Ada Data yang di input";
+                      }
+                      return data
                     }
-                    return data
+                  },
+                  {
+                    title: "HADIR",
+                    data: "8",
+                  },
+                  {
+                    title: "SAKIT",
+                    data: "9",
+                  },
+                  {
+                    title: "IZIN",
+                    data: "10",
+                  },
+                  {
+                    title: "ALPA",
+                    data: "11",
+                  },
+                  {
+                    title: "KONDISI KELAS",
+                    data: "12",
+                  },
+                  {
+                    title: "DOKUMENTASI 1",
+                    data: "13",
+                    render: function (data, type, row) {
+                      if (data === "?" || !data) {
+                        return msg;
+                      }
+                      return `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`;
+                    },
+                  },
+                  {
+                    title: "DOKUMENTASI 2",
+                    data: "14",
+                    render: function (data, type, row) {
+                      if (data === "?" || !data) {
+                        return msg;
+                      }
+                      return `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`;
+                    },
+                  },
+                  {
+                    title: "DOKUMENTASI 3",
+                    data: "15",
+                    render: function (data, type, row) {
+                      if (data === "?" || !data) {
+                        return msg;
+                      }
+                      return `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`;
+                    },
+                  },
+                  {
+                    title: "DOKUMENTASI 4",
+                    data: "16",
+                    render: function (data, type, row) {
+                      if (data === "?" || !data) {
+                        return msg;
+                      }
+                      return `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`;
+                    },
+                  },
+                  {
+                    title: "PIKET PENGGANTI",
+                    data: "17",
                   }
-                },
-                {
-                  title: "HADIR",
-                  data: "8",
-                },
-                {
-                  title: "SAKIT",
-                  data: "9",
-                },
-                {
-                  title: "IZIN",
-                  data: "10",
-                },
-                {
-                  title: "ALPA",
-                  data: "11",
-                },
-                {
-                  title: "KONDISI KELAS",
-                  data: "12",
-                },
-                {
-                  title: "DOKUMENTASI 1",
-                  data: "13",
-                  render: function (data, type, row) {
-                    if (data === "?" || !data) {
-                      return "Tidak Ada Dokumentasi";
-                    }
-                    return data
-                      ? `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`
-                      : "Tidak Ada Dokumentasi";
-                  },
-                },
-                {
-                  title: "DOKUMENTASI 2",
-                  data: "14",
-                  render: function (data, type, row) {
-                    if (data === "?" || !data) {
-                      return "Tidak Ada Dokumentasi";
-                    }
-                    return data
-                      ? `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`
-                      : "Tidak Ada Dokumentasi";
-                  },
-                },
-                {
-                  title: "DOKUMENTASI 3",
-                  data: "15",
-                  render: function (data, type, row) {
-                    if (data === "?" || !data) {
-                      return "Tidak Ada Dokumentasi";
-                    }
-                    return data
-                      ? `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`
-                      : "Tidak Ada Dokumentasi";
-                  },
-                },
-                {
-                  title: "DOKUMENTASI 4",
-                  data: "16",
-                  render: function (data, type, row) {
-                    if (data === "?" || !data) {
-                      return "Tidak Ada Dokumentasi";
-                    }
-                    return data
-                      ? `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`
-                      : "Tidak Ada Dokumentasi";
-                  },
-                },
-                {
-                  title: "PIKET PENGGANTI",
-                  data: "17",
-                }
 
-              ],
-              rowId: "KELAS",
-              liveAjax: true,
-            });
+                ],
+                rowId: "KELAS",
+                liveAjax: true,
+              });
+            } else {
+              $("#example").DataTable().ajax.reload(null, false);
+            }
           }).catch(error => {
             console.error("Ada yang salah nih BOSKUU:", error);
             swal("Error", "Terjadi kesalahan saat mengambil data", "error");
@@ -207,6 +198,6 @@
       setInterval(fetchData, 60000);
     });
   </script>
-  </body>
+</body>
 
 </html>

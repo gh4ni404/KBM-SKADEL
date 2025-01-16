@@ -177,6 +177,14 @@
                 ],
                 rowId: "KELAS",
                 liveAjax: true,
+                createdRow: function (row, data, dataIndex) {
+                  // Periksa Semua sel dalam Menu
+                  $('td', row).each(function (index, cell)) {
+                    if ($(cell).text() == "?") {
+                      $(cell).addClass('bg-danger');
+                    }
+                  }
+                }
               });
             } else {
               // $("#example").DataTable().ajax.reload(null, false);

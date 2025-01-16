@@ -5,13 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css"
-    href="https://cdn.datatables.net/fixedheader/3.2.0/css/fixedHeader.bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css"
-    href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" /> -->
-
+  
   <!-- UPDATE CSS here -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
@@ -43,21 +37,11 @@
 
   <div class="container">
     <h4 class="text-center mb-4" id="date"></h4>
-    <!-- <h4 class="text-center mb-4" id="packageName"></h4> -->
     <table id="example" class="table table-bordered text-center align-middle mt-2 mb-2" style="width: 100%"></table>
     <br />
     <br />
     <p id="passingGrade"></p>
   </div>
-
-  <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap.min.js"></script>
-  <script src="https://cdn.datatables.net/fixedheader/3.2.0/js/dataTables.fixedHeader.min.js"></script>
-  <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-  <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap.min.js"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
-  <!-- <script type="text/javascript" src="data.json"></script> -->
 
   <!-- Update JSS Link here -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -96,7 +80,6 @@
             document.getElementById("date").textContent = `${formattedDate}`;
 
             // Memastikan jika DataTable sudah diinisialisasi
-            // if (!$.fn.DataTable.isDataTable("#example")) {
             if (!table) {
               // Filter data berdasarkan hari
               table = $("#example").DataTable({
@@ -124,9 +107,7 @@
                   {
                     title: "MATA PELAJARAN",
                     data: "5",
-
                   },
-
                   {
                     title: "NAMA WALI KELAS",
                     data: "6",
@@ -176,7 +157,6 @@
                     title: "PIKET PENGGANTI",
                     data: "16",
                   }
-
                 ],
                 rowId: "KELAS",
                 liveAjax: true,
@@ -198,7 +178,6 @@
                 },
               });
             } else {
-              // $("#example").DataTable().ajax.reload(null, false);
               table.clear();
               table.rows.add(data.data).draw();
             }

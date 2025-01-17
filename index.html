@@ -5,37 +5,84 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
+
   <!-- UPDATE CSS here -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+
+  <style>
+    .table-wrapper {
+      position: relative;
+      overflow-x: scroll;
+      height: 68vh;
+    }
+
+    .fade-out {
+      animation: fadeOut 1s forwards;
+    }
+
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+  </style>
   <title>KBM SKADEL</title>
 </head>
 
 <body>
 
-  <div class="sticky-top bg-primary p-5">
-    <h3 class="text-center mb-4">LAPORAN KBM HARIAN SMKN 8 BONE</h3>
-    <div class="form-floating w-50 mx-auto">
-      <select id="floatingSelect" class="form-select" aria-label="Floating label select example">
-        <option value="SENIN">Senin</option>
-        <option value="SELASA">Selasa</option>
-        <option value="RABU">Rabu</option>
-        <option value="KAMIS">Kamis</option>
-        <option value="JUMAT">Jumat</option>
-        <option value="SABTU">Sabtu</option>
-        <option value="MINGGU">Minggu</option>
-      </select>
-      <label for="floatingSelect">Pilih Hari :</label>
+  <div class="row">
+    <div class="col">
+      
     </div>
-    <h4 class="text-center mt-4" id="date"></h4>
-  </div>
 
-  <div class="table-responsive mt-4 p-3">
-    <table id="example" class="table table-bordered align-middle mt-2 mb-2" style="width: 100%"></table>
-    <p id="passingGrade"></p>
+    <div class="d-block">
+      <!-- Judul di sini -->
+      <div class="sticky-top bg-primary p-3">
+        <img src="LOGO PROVINSI.png" alt="logo provinsi" class="rounded float-start m-1" width="100px">
+        <img src="LOGO SEKOLAH.png" alt="logo provinsi" class="rounded float-end m-1" width="100px">
+        <h3 class="text-center">LAPORAN KBM HARIAN SMKN 8 BONE</h3>
+        <div class="container tex-center">
+          <div class="row">
+            <button onclick="fetchData('SENIN')" class="btn btn-secondary col col-lg col-md col-sm m-2">SENIN</button>
+            <button onclick="fetchData('SELASA')" class="btn btn-secondary col col-lg col-md col-sm m-2">SELASA</button>
+            <button onclick="fetchData('RABU')" class="btn btn-secondary col col-lg col-md col-sm m-2">RABU</button>
+            <button onclick="fetchData('KAMIS')" class="btn btn-secondary col col-lg col-md col-sm m-2">KAMIS</button>
+            <button onclick="fetchData('JUMAT')" class="btn btn-secondary col col-lg col-md col-sm m-2">JUMAT</button>
+            <button onclick="fetchData('SABTU')" class="btn btn-secondary col col-lg col-md col-sm m-2">SABTU</button>
+          </div>
+        </div>
+        <h4 class="text-center mt-2" id="date"></h4>
+        
+      </div>
+      <!-- judul end -->
+  
+      <!-- Loading Spinner Disini-->
+      <div id="loading"
+        class="text-center position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-light"
+        style="display: block; z-index: 1000;">
+        <div class="spinner-border m-2" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-3">Memuat, Harap tunggu...</p>
+      </div>
+      <!-- Loading Spinner End -->
+  
+      <!-- Table di isini -->
+      <div class="table-responsive table-wrapper mt-4">
+        <table id="example" class="table table-bordered align-middle mt-2" style="width: 100%"></table>
+      </div>
+      <!-- Table End -->
+    </div>
   </div>
+  
+
 
   <!-- Update JSS Link here -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -44,170 +91,189 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script type="text/javascript">
-    $(document).ready(function () {
-      const baseUrl = "https://script.google.com/macros/s/AKfycbwxxDPptmg0b4BlIJJ-pie4POoeMIJjQGFEsHj7oAHHTU3YEEK9c2CCQb1n2D4UxB5YOg/exec";
-      const days = ["MINGGU", "SENIN", "SELASA", "RABU", "KAMIS", "JUMAT", "SABTU"];
-      let table;
+    const baseUrl = "https://script.google.com/macros/s/AKfycbwxxDPptmg0b4BlIJJ-pie4POoeMIJjQGFEsHj7oAHHTU3YEEK9c2CCQb1n2D4UxB5YOg/exec";
+    const days = ["MINGGU", "SENIN", "SELASA", "RABU", "KAMIS", "JUMAT", "SABTU"];
+    const loadingData = document.getElementById("loading");
 
-      function fetchData(day = "") {
-        let url = baseUrl;
-        if (day) {
-          url += `?day=${day}`;
-        }
+    let table;
 
-        fetch(url)
-          .then(response => response.json())
-          .then(data => {
+    function fetchData(day) {
+      let url = baseUrl;
+      if (day) {
+        url += `?day=${day}`;
+      }
 
-            // Tampilkan tanggal jika data ada
-            const rawDate = new Date(data.tanggal);
-            const options = {
-              weekday: 'long',
-              day: '2-digit',
-              month: 'long',
-              year: 'numeric',
-            };
-            const formattedDate = rawDate.toLocaleDateString('id-ID', options);
-            document.getElementById("date").textContent = `${formattedDate}`;
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          
+          // Tampilkan tanggal jika data ada
+          const rawDate = new Date(data.tanggal);
+          const options = {
+            weekday: 'long',
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric',
+          };
+          const formattedDate = rawDate.toLocaleDateString('id-ID', options);
+          document.getElementById("date").textContent = `${formattedDate}`;
 
-            // Memastikan jika DataTable sudah diinisialisasi
-            if (!table) {
-              // Filter data berdasarkan hari
-              table = $("#example").DataTable({
-                ajax: url,
-                lengthMenu: [[-1, 10, 25, 50], ["All", 10, 25, 50]], // Tambahkan opsi "All" dengan nilai -1
-                pageLength: -1, // Tampilkan semua data secara default
-                columns: [
-                  {
-                    title: "KELAS",
-                    data: "2",
-                    className: "text-center",
-                  },
-                  {
-                    title: "MULAI JAM KE",
-                    data: "3",
-                    width: "2%",
-                  },
-                  {
-                    title: "NAMA GURU MAPEL",
-                    data: "4",
-                  },
-                  {
-                    title: "MATA PELAJARAN",
-                    data: "5",
-                    className: "text-center",
-                    width: "2%",
-                  },
-                  {
-                    title: "NAMA WALI KELAS",
-                    data: "6",
-                    className: "text-center",
-                    width: "2%",
-                  },
-                  {
-                    title: "HADIR",
-                    data: "7",
-                    className: "text-center",
-                    width: "2%",
-                  },
-                  {
-                    title: "SAKIT",
-                    data: "8",
-                    className: "text-center",
-                    width: "2%",
-                  },
-                  {
-                    title: "IZIN",
-                    data: "9",
-                    width: "20px",
-                  },
-                  {
-                    title: "ALPA",
-                    data: "10",
-                  },
-                  {
-                    title: "KONDISI KELAS",
-                    data: "11",
-                  },
-                  {
-                    title: "DOKUMENTASI 1",
-                    data: "12",
-                    render: renderDoc
-                  },
-                  {
-                    title: "DOKUMENTASI 2",
-                    data: "13",
-                    render: renderDoc
-                  },
-                  {
-                    title: "DOKUMENTASI 3",
-                    data: "14",
-                    render: renderDoc
-                  },
-                  {
-                    title: "DOKUMENTASI 4",
-                    data: "15",
-                    render: renderDoc
-                  },
-                  {
-                    title: "PIKET PENGGANTI",
-                    data: "16",
-                  }
-                ],
-                order: [
-                  [0, "asc"],
-                  [1, "asc"]
-                ],
-                rowId: "KELAS",
-                liveAjax: true,
-                createdRow: function (row, data, dataIndex) {
-                  // Periksa Semua sel dalam Menu
-                  let hasNoData = false;
-
-                  $('td', row).each(function (index, cell) {
-                    if ($(cell).text() === "?") {
-                      hasNoData = true;
-                    }
-                  });
-                  if (hasNoData) {
-                    $(row).addClass('bg-danger text-white');
-                  } else {
-                    $(row).removeClass('bg-danger text-white');
-                  }
+          // Memastikan jika DataTable sudah diinisialisasi
+          if (!table) {
+            // Filter data berdasarkan hari
+            table = $("#example").DataTable({
+              ajax: url,
+              lengthMenu: [[-1, 10, 25, 50], ["All", 10, 25, 50]], // Tambahkan opsi "All" dengan nilai -1
+              pageLength: -1, // Tampilkan semua data secara default
+              columns: [
+                {
+                  title: "NO",
+                  data: "1",
+                  className: "text-center",
                 },
-              });
-            } else {
-              table.clear();
-              table.rows.add(data.data).draw();
-            }
-          }).catch(error => {
-            console.error("Ada yang salah nih BOSKUU:", error);
-            swal("Error", "Terjadi kesalahan saat mengambil data", "error");
-          });
+                {
+                  title: "KELAS",
+                  data: "2",
+                  className: "text-center",
+                },
+                {
+                  title: "MULAI JAM KE",
+                  data: "3",
+                  width: "2%",
+                },
+                {
+                  title: "NAMA GURU MAPEL",
+                  data: "4",
+                },
+                {
+                  title: "MATA PELAJARAN",
+                  data: "5",
+                  className: "text-center",
+                  width: "2%",
+                },
+                {
+                  title: "NAMA WALI KELAS",
+                  data: "6",
+                  className: "text-center",
+                  width: "2%",
+                },
+                {
+                  title: "HADIR",
+                  data: "7",
+                  className: "text-center",
+                  width: "2%",
+                },
+                {
+                  title: "SAKIT",
+                  data: "8",
+                  className: "text-center",
+                  width: "2%",
+                },
+                {
+                  title: "IZIN",
+                  data: "9",
+                  width: "20px",
+                },
+                {
+                  title: "ALPA",
+                  data: "10",
+                },
+                {
+                  title: "KONDISI KELAS",
+                  data: "11",
+                },
+                {
+                  title: "DOKUMENTASI 1",
+                  data: "12",
+                  render: renderDoc
+                },
+                {
+                  title: "DOKUMENTASI 2",
+                  data: "13",
+                  render: renderDoc
+                },
+                {
+                  title: "DOKUMENTASI 3",
+                  data: "14",
+                  render: renderDoc
+                },
+                {
+                  title: "DOKUMENTASI 4",
+                  data: "15",
+                  render: renderDoc
+                },
+                {
+                  title: "PIKET PENGGANTI",
+                  data: "16",
+                }
+              ],
+              order: [
+                [1, "asc"],
+                [2, "asc"],
+                
+              ],
+              rowId: "KELAS",
+              liveAjax: true,
+              createdRow: function (row, data, dataIndex) {
+                // Periksa Semua sel dalam Menu
+                let hasNoData = false;
 
-      }
+                $('td', row).each(function (index, cell) {
+                  if ($(cell).text() === "?") {
+                    hasNoData = true;
+                  }
+                });
+                if (hasNoData) {
+                  $(row).addClass('bg-danger text-white');
+                } else {
+                  $(row).removeClass('bg-danger text-white');
+                }
+              },
+            });
+            table.on('xhr', function () {
 
-      function renderDoc(data) {
-        return data === "?" || !data ? "?" : `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`;
-      }
+              loadingData.classList.add("fade-out");
+              setTimeout(() => {
+                loadingData.style.display = "none";
+                loadingData.style.zIndex = "-1";
+              }, 1000);
+            });
+          } else {
+            table.clear();
+            table.rows.add(data.data).draw();
+            loadingData.classList.add("fade-out");
+              setTimeout(() => {
+                loadingData.style.display = "none";
+                loadingData.style.zIndex = "-1";
+              }, 1000);
+          }
+        }).catch(error => {
+          console.error("Ada yang salah nih BOSKUU:", error);
+          swal("Error", "Terjadi kesalahan saat mengambil data", "error");
+        });
+    }
 
-      function setDefaultDay() {
-        const today = new Date().getDay();
-        const defaultDay = days[today];
-        $("#floatingSelect").val(defaultDay).trigger("change");
-      }
+    function renderDoc(data) {
+      return data === "?" || !data ? "?" : `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`;
+    }
 
-      fetchData();
+    function setDefaultDay() {
+      const today = new Date().getDay();
+      const defaultDay = days[today];
+      $("#floatingSelect").val(defaultDay).trigger("change");
+    }
 
-      setDefaultDay();
-      $("#floatingSelect").change(function () {
-        fetchData($(this).val());
-      });
+    fetchData();
 
-      setInterval(() => {
-        fetchData($("#floatingSelect").val());
-      }, 60000);
+    setDefaultDay();
+    $("#floatingSelect").change(function () {
+      fetchData($(this).val());
     });
+
+    setInterval(() => {
+      fetchData($("#floatingSelect").val());
+    }, 60000);
+
   </script>
 </body>
 

@@ -31,6 +31,11 @@
         opacity: 0;
       }
     }
+
+    #example thead th {
+      background-color: #343a40;
+      color: white;
+    }
   </style>
   <title>KBM SKADEL</title>
 </head>
@@ -41,7 +46,7 @@
     <div class="sticky-top bg-primary p-3">
       <img src="LOGO SEKOLAH.png" alt="logo sekolah" class="rounded float-start m-1" width="100px">
       <img src="LOGO PROVINSI.png" alt="logo provinsi" class="rounded float-end m-1" width="100px">
-      <h3 class="text-center">LAPORAN KBM HARIAN SMKN 8 BONE</h3>
+      <h3 class="text-center text-bg-primary">LAPORAN KBM HARIAN SMKN 8 BONE</h3>
       <div class="container tex-center">
         <div class="row">
           <button onclick="fetchData('SENIN')" class="btn btn-secondary col col-lg col-md col-sm m-2">SENIN</button>
@@ -52,7 +57,7 @@
           <button onclick="fetchData('SABTU')" class="btn btn-secondary col col-lg col-md col-sm m-2">SABTU</button>
         </div>
       </div>
-      <h4 class="text-center mt-2" id="date"></h4>
+      <h4 class="text-center mt-2 text-bg-primary" id="date"></h4>
 
     </div>
     <!-- judul end -->
@@ -142,13 +147,11 @@
                 {
                   title: "MATA PELAJARAN",
                   data: "5",
-                  className: "text-center",
                   width: "2%",
                 },
                 {
                   title: "NAMA WALI KELAS",
                   data: "6",
-                  className: "text-center",
                   width: "2%",
                 },
                 {
@@ -166,11 +169,14 @@
                 {
                   title: "IZIN",
                   data: "9",
-                  width: "20px",
+                  className: "text-center",
+                  width: "2%",
                 },
                 {
                   title: "ALPA",
                   data: "10",
+                  className: "text-center",
+                  width: "2%",
                 },
                 {
                   title: "KONDISI KELAS",

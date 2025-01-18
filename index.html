@@ -41,20 +41,35 @@
 </head>
 
 <body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+
+    </div>
+  </nav>
+  <!-- Navbar End -->
+
   <div class="d-block">
     <!-- Judul di sini -->
     <div class="sticky-top bg-primary p-3">
-      <img src="LOGO SEKOLAH.png" alt="logo sekolah" class="rounded float-start m-1" width="100px">
-      <img src="LOGO PROVINSI.png" alt="logo provinsi" class="rounded float-end m-1" width="100px">
+      <img src="LOGO PROVINSI.png" alt="logo provinsi" class="rounded float-start m-1" width="100px">
+      <img src="LOGO SEKOLAH.png" alt="logo SEKOLAH" class="rounded float-end m-1" width="100px">
       <h3 class="text-center text-bg-primary">LAPORAN KBM HARIAN SMKN 8 BONE</h3>
-      <div class="container tex-center">
+      <div class="container bg-warning p-2 rounded">
         <div class="row">
-          <button onclick="fetchData('SENIN')" class="btn btn-secondary col col-lg col-md col-sm m-2">SENIN</button>
-          <button onclick="fetchData('SELASA')" class="btn btn-secondary col col-lg col-md col-sm m-2">SELASA</button>
-          <button onclick="fetchData('RABU')" class="btn btn-secondary col col-lg col-md col-sm m-2">RABU</button>
-          <button onclick="fetchData('KAMIS')" class="btn btn-secondary col col-lg col-md col-sm m-2">KAMIS</button>
-          <button onclick="fetchData('JUMAT')" class="btn btn-secondary col col-lg col-md col-sm m-2">JUMAT</button>
-          <button onclick="fetchData('SABTU')" class="btn btn-secondary col col-lg col-md col-sm m-2">SABTU</button>
+          <button onclick="fetchData('SENIN')"
+            class="btn btn-secondary col-1 col-lg-1 col-md-1 col-sm-1 m-2">SENIN</button>
+          <button onclick="fetchData('SELASA')"
+            class="btn btn-secondary col-1 col-lg-1 col-md-1 col-sm-1 m-2">SELASA</button>
+          <button onclick="fetchData('RABU')"
+            class="btn btn-secondary col-1 col-lg-1 col-md-1 col-sm-1 m-2">RABU</button>
+          <button onclick="fetchData('KAMIS')"
+            class="btn btn-secondary col-1 col-lg-1 col-md-1 col-sm-1 m-2">KAMIS</button>
+          <button onclick="fetchData('JUMAT')"
+            class="btn btn-secondary col-1 col-lg-1 col-md-1 col-sm-1 m-2">JUMAT</button>
+          <button onclick="fetchData('SABTU')"
+            class="btn btn-secondary col-1 col-lg-1 col-md-1 col-sm-1 m-2">SABTU</button>
         </div>
       </div>
       <h4 class="text-center mt-2 text-bg-primary" id="date"></h4>
@@ -79,9 +94,6 @@
     </div>
     <!-- Table End -->
   </div>
-
-
-
 
   <!-- Update JSS Link here -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -207,11 +219,6 @@
                   data: "16",
                 }
               ],
-              order: [
-                [1, "asc"],
-                [2, "asc"],
-
-              ],
               rowId: "KELAS",
               liveAjax: true,
               createdRow: function (row, data, dataIndex) {
@@ -270,9 +277,9 @@
       fetchData($(this).val());
     });
 
-    setInterval(() => {
-      fetchData($("#floatingSelect").val());
-    }, 60000);
+    // setInterval(() => {
+    //   fetchData($("#floatingSelect").val());
+    // }, 60000);
 
   </script>
 </body>

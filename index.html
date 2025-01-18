@@ -11,17 +11,12 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
-  <!-- DataTables Buttons CSS -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
-  <!-- Bootstrap 5 Integration -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
-
 
   <style>
     .table-wrapper {
       position: relative;
       overflow-x: scroll;
-      height: 68vh;
+      height: 74vh;
     }
 
     .fade-out {
@@ -38,6 +33,16 @@
       }
     }
 
+    @media (max-width: 576px) {
+      .nav-tabs {
+        font-size: 10px;
+      }
+
+      .nav-tabs .nav-link {
+        padding: 5px 10px
+      }
+    }
+
     #example thead th {
       background-color: #343a40;
       color: white;
@@ -49,72 +54,75 @@
 <body>
 
   <!-- Navbar -->
-  <!-- <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-
-    </div>
-  </nav> -->
+  <ul class="nav nav-tabs justify-content-center bg-primary">
+    <li class="nav-item">
+      <a href="#" onclick="fetchData('SENIN')" class="nav-link active">SENIN</a>
+    </li>
+    <li class="nav-item">
+      <a href="#" onclick="fetchData('SELASA')" class="nav-link">SELASA</a>
+    </li>
+    <li class="nav-item">
+      <a href="#" onclick="fetchData('RABU')" class="nav-link">RABU</a>
+    </li>
+    <li class="nav-item">
+      <a href="#" onclick="fetchData('KAMIS')" class="nav-link">KAMIS</a>
+    </li>
+    <li class="nav-item">
+      <a href="#" onclick="fetchData('JUMAT')" class="nav-link">JUMAT</a>
+    </li>
+    <li class="nav-item">
+      <a href="#" onclick="fetchData('SABTU')" class="nav-link">SABTU</a>
+    </li>
+  </ul>
   <!-- Navbar End -->
 
-  <div class="d-block">
-    <!-- Judul di sini -->
-    <div class="sticky-top bg-primary">
-      <img src="LOGO PROVINSI.png" alt="logo provinsi" class="rounded float-start m-1" width="75">
-      <img src="LOGO SEKOLAH.png" alt="logo SEKOLAH" class="rounded float-end m-1" width="75">
-      <h3 class="text-center text-bg-primary">LAPORAN KBM HARIAN SMKN 8 BONE</h3>
-      <div class="container">
-        <div class="row">
-          <button onclick="fetchData('SENIN')"
-            class="btn btn-secondary col-1 col-lg-1 col-md-1 col-sm-1 m-2">SENIN</button>
-          <button onclick="fetchData('SELASA')"
-            class="btn btn-secondary col-1 col-lg-1 col-md-1 col-sm-1 m-2">SELASA</button>
-          <button onclick="fetchData('RABU')"
-            class="btn btn-secondary col-1 col-lg-1 col-md-1 col-sm-1 m-2">RABU</button>
-          <button onclick="fetchData('KAMIS')"
-            class="btn btn-secondary col-1 col-lg-1 col-md-1 col-sm-1 m-2">KAMIS</button>
-          <button onclick="fetchData('JUMAT')"
-            class="btn btn-secondary col-1 col-lg-1 col-md-1 col-sm-1 m-2">JUMAT</button>
-          <button onclick="fetchData('SABTU')"
-            class="btn btn-secondary col-1 col-lg-1 col-md-1 col-sm-1 m-2">SABTU</button>
-        </div>
-      </div>
-      <h4 class="text-center mt-2 text-bg-primary" id="date"></h4>
-
-    </div>
-    <!-- judul end -->
-
-    <!-- Loading Spinner Disini-->
-    <div id="loading"
-      class="text-center position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-light"
-      style="display: block; z-index: 1000;">
-      <div class="spinner-border m-2" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-      <p class="mt-3">Memuat, Harap tunggu...</p>
-    </div>
-    <!-- Loading Spinner End -->
-
-    <!-- Tombol Print disini -->
-    <div class="text-end m-3">
-      <button class="btn btn-primary" onclick="printPage()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer"
-          viewBox="0 0 16 16">
-          <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1" />
-          <path
-            d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1" />
-        </svg>
-        Print Tabel
-      </button>
-    </div>
-    <!-- Tombol Print end -->
-
-    <!-- Table disini -->
-    <div class="table-responsive table-wrapper mt-4">
-
-      <table id="example" class="table table-bordered align-middle mt-2" style="width: 100%"></table>
-    </div>
-    <!-- Table End -->
+  <!-- Judul di sini -->
+  <div class="sticky-top bg-primary mt-1 py2 align-middle" style="height: 20vh;">
+    <img src="LOGO PROVINSI.png" alt="logo provinsi" class="rounded float-start m-1" width="75">
+    <img src="LOGO SEKOLAH.png" alt="logo SEKOLAH" class="rounded float-end m-1" width="75">
+    <h3 class="text-center text-bg-primary">LAPORAN KBM HARIAN SMKN 8 BONE</h3>
+    <h4 class="text-center text-bg-primary" id="date"></h4>
   </div>
+
+  <!-- judul end -->
+
+  <!-- Tombol Print disini -->
+  <div class="text-end">
+    <button class="btn btn-primary" onclick="printPage()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer"
+        viewBox="0 0 16 16">
+        <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1" />
+        <path
+          d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1" />
+      </svg>
+      Print Tabel
+      <button class="btn btn-primary" onclick="exportPage()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save"
+          viewBox="0 0 16 16">
+          <path
+            d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z" />
+        </svg>
+        Export Tabel
+      </button>
+  </div>
+  <!-- Tombol Print end -->
+
+  <!-- Table disini -->
+  <div class="table-responsive table-wrapper">
+    <table id="example" class="table table-bordered align-middle" style="width: 100%"></table>
+  </div>
+  <!-- Table End -->
+
+  <!-- Loading Spinner Disini-->
+  <div id="loading"
+    class="text-center position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-light"
+    style="display: block; z-index: 1000;">
+    <div class="spinner-border m-2" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-3">Memuat, Harap tunggu...</p>
+  </div>
+  <!-- Loading Spinner End -->
 
   <!-- Update JSS Link here -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -124,11 +132,9 @@
   <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
   <!-- DataTables Buttons JS -->
-  <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.bootstrap5.min.js"></script>
   <!-- Export Buttons -->
   <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
   <!-- JSZip (untuk Export Excel) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
@@ -158,6 +164,7 @@
             year: 'numeric',
           };
           const formattedDate = rawDate.toLocaleDateString('id-ID', options);
+          const sanitizedDate = formattedDate.replace(/[^a-zA-Z0-9\s-]/g, '').trim();
           document.getElementById("date").textContent = `${formattedDate}`;
 
           // Memastikan jika DataTable sudah diinisialisasi
@@ -165,7 +172,42 @@
             // Filter data berdasarkan hari
             table = $("#example").DataTable({
               ajax: url,
-              lengthMenu: [[-1, 10, 25, 50], ["All", 10, 25, 50]], // Tambahkan opsi "All" dengan nilai -1
+              dom: 'rtip',
+              buttons: [
+                {
+                  extend: 'print',
+                  customize: function (win) {
+                    $(win.document.body).css('font-size', '10pt');
+                    $(win.document.body).find('table').addClass('table table-bordered');
+                    // $(win.document.body).find('h1').addClass('text-center').text('Laporan KBM Harian SMKN 8 Bone');
+                    // $(win.document.body).find('h4').addClass('text-center mt-2').text(formattedDate);
+
+                    $(win.document.body).prepend(`
+                      <div class="d-flex justify-content-between m-4">
+                        <img src="./LOGO PROVINSI.png" width="75" height="75">
+                        <div class="text-center">
+                          <h1>Laporan KBM Harian SMKN 8 Bone</h1>
+                          <h4>${formattedDate}</h4>
+                        </div>
+                        <img src="./LOGO SEKOLAH.png" width="75" height="75">
+                      </div>
+                        
+                    `);
+                  }
+                },
+                {
+                  extend: 'excel',
+                  text: 'Export Excel',
+                  title: `HARIAN KBM SMKN 8 BONE - ${sanitizedDate}`,
+                  exportOptions: {
+                    columns: ':visible'
+                  },
+                  customize: function (xlsx) {
+                    const sheet = xlsx.xl.worksheets['sheet1.xml'];
+                    $('row c[r^="A"]', sheet).attr('s', '42');
+                  }
+                }
+              ],
               pageLength: -1, // Tampilkan semua data secara default
               columns: [
                 {
@@ -244,38 +286,7 @@
                   data: "16",
                 }
               ],
-              dom: 'lrtip',
-              buttons: [
-                {
-                  extend: 'print',
-                  customize: function (win) {
-                    $(win.document.body).css('font-size', '10pt');
-                    $(win.document.body).find('table').addClass('table table-bordered');
-                    // $(win.document.body).find('h1').addClass('text-center').text('Laporan KBM Harian SMKN 8 Bone');
-                    // $(win.document.body).find('h4').addClass('text-center mt-2').text(formattedDate);
 
-                    $(win.document.body).prepend(`
-                      <div class="d-flex justify-content-between m-4">
-                        <img src="./LOGO PROVINSI.png" width="75" height="75">
-                        <div class="text-center">
-                          <h1>Laporan KBM Harian SMKN 8 Bone</h1>
-                          <h4 class="text-center">${formattedDate}</h4>
-                        </div>
-                        <img src="./LOGO SEKOLAH.png" width="75" height="75">
-                      </div>
-                        
-                    `);
-                  }
-                },
-                {
-                  extend: 'excel',
-                  text: 'Export Excel',
-                  className: 'btn btn-primary',
-                  exportOptions: {
-                    columns: ':visible'
-                  }
-                }
-              ],
               rowId: "KELAS",
               liveAjax: true,
               createdRow: function (row, data, dataIndex) {
@@ -318,23 +329,26 @@
     }
 
     function renderDoc(data) {
-      console.log(data);
       return data === "?" || !data ? "?" : `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`;
     }
 
     function setDefaultDay() {
       const today = new Date().getDay();
-      const defaultDay = days[today];
+      const defaultDay = days[today === 0 ? 6 : today];
+      fetchData(defaultDay);
       $("#floatingSelect").val(defaultDay).trigger("change");
     }
 
     function printPage() {
       table.button(0).trigger();
     }
+    function exportPage() {
+      table.button(1).trigger();
+    }
 
     fetchData();
-
     setDefaultDay();
+
     $("#floatingSelect").change(function () {
       fetchData($(this).val());
     });

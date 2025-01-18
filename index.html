@@ -49,16 +49,16 @@
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <!-- <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
 
     </div>
-  </nav>
+  </nav> -->
   <!-- Navbar End -->
 
   <div class="d-block">
     <!-- Judul di sini -->
-    <div class="sticky-top bg-primary p-3 min-vw-100">
+    <div class="sticky-top bg-primary">
       <img src="LOGO PROVINSI.png" alt="logo provinsi" class="rounded float-start m-1" width="75">
       <img src="LOGO SEKOLAH.png" alt="logo SEKOLAH" class="rounded float-end m-1" width="75">
       <h3 class="text-center text-bg-primary">LAPORAN KBM HARIAN SMKN 8 BONE</h3>
@@ -244,18 +244,10 @@
                   data: "16",
                 }
               ],
-              dom: 'Bfrtip',
+              dom: 'lrtip',
               buttons: [
                 {
                   extend: 'print',
-                  text: `
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
-                  <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1"/>
-                  <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1"/>
-                  </svg> Print Tabel
-                  `,
-                  title: `
-                  `,
                   customize: function (win) {
                     $(win.document.body).css('font-size', '10pt');
                     $(win.document.body).find('table').addClass('table table-bordered');
@@ -337,7 +329,7 @@
     }
 
     function printPage() {
-      window.print();
+      table.button(0).trigger();
     }
 
     fetchData();

@@ -80,7 +80,6 @@
 </head>
 
 <body>
-
   <!-- Navbar -->
   <ul id="myTab" role="tablist" class="nav nav-tabs justify-content-center bg-primary-subtle">
     <li class="nav-item" role="presentation">
@@ -371,22 +370,27 @@
             $('#example').removeClass('fade').addClass('fade show');
           }).catch(error => {
             console.error("Ada yang salah nih BOSKUU:", error);
-            swal("Error", "Terjadi kesalahan saat mengambil data", "error");
+            // swal("Error", "Terjadi kesalahan saat mengambil data", error);
           });
       }, 500);
     }
 
     function renderDoc(data) {
+      if (!data || data === "?") {
+        return "?";
+      }
       console.log(data);
-      if (!data || data === "?") return "?";
+      const imageUrl = data.replace("https://drive.google.com/open?id=", "https://drive.google.com/thumbnail?id=");
 
-      const directLink = data.replace(/https:\/\/drive\.google\.com\/open\?id=/, "https://drive.google.com/uc?export=view&id=");
-      console.log("ini adalah directlink", directLink);
+      // const validImageType = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
+      // const image = new Image();
+      // image.src = imageUrl;
       return `
-      <a href="${data}" target="_blank">
-        <img src="${directLink}" alt="Dokumentasi" class="img-thumbnail">
-      </a>
-      `;
+    <a href="${imageUrl}" target="_blank">
+      <img src ="${imageUrl}" alt="Dokumentasi" class="img-thumbnail">
+      Lihat dokumentasi      
+    </a>
+  `;
     }
 
     function setDefaultDay() {

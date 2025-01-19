@@ -17,15 +17,43 @@
       font-size: 13px;
     }
 
+    @media (max-width: 576px) {
+      .nav-tabs .nav-link {
+        padding: 5px 10px
+      }
+
+      .rounded {
+        width: 50px;
+        padding-top: 10px;
+      }
+
+      .btn-primary {
+        font-size: 10px;
+        margin: 5px;
+      }
+
+      .text-light {
+        font-size: 15px;
+      }
+    }
+
     @media (min-width: 768px) {
       .nav-tabs .nav-link {
         font-size: 16px;
+      }
+
+      #example {
+        font-size: 14px;
       }
     }
 
     @media (min-width: 992px) {
       .nav-tabs .nav-link {
         font-size: 20px;
+      }
+
+      #example {
+        font-size: 16px;
       }
     }
 
@@ -63,33 +91,11 @@
       }
     }
 
-    @media (max-width: 576px) {
-      .nav-tabs .nav-link {
-        padding: 5px 10px
-      }
-
-      .text-bg-primary {
-        font-size: 15px;
-      }
-
-      .rounded {
-        width: 50px;
-        padding-top: 10px;
-      }
-
-      .btn-primary {
-        font-size: 10px;
-        margin: 5px;
-      }
-
-      .text-light {
-        font-size: 15px;
-      }
-    }
-
     #example thead th {
       background-color: #343a40;
       color: white;
+      font-size: 12px;
+      vertical-align: middle;
     }
   </style>
   <title>KBM SKADEL</title>
@@ -244,6 +250,7 @@
               // Filter data berdasarkan hari
               table = $("#example").DataTable({
                 ajax: url,
+                responsive: true,
                 dom: 'rtip',
                 buttons: [
                   {
@@ -261,7 +268,6 @@
                         </div>
                         <img src="./LOGO SEKOLAH.png" width="75" height="75">
                       </div>
-                        
                     `);
                     }
                   },

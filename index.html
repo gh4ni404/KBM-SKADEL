@@ -16,11 +16,15 @@
     .table-wrapper {
       position: relative;
       overflow-x: scroll;
-      height: 74vh;
+      height: 69vh;
     }
 
     .fade-out {
       animation: fadeOut 1s forwards;
+    }
+
+    .fade-in {
+      animation: fadeIn 1s forwards;
     }
 
     @keyframes fadeOut {
@@ -30,6 +34,16 @@
 
       100% {
         opacity: 0;
+      }
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
       }
     }
 
@@ -43,7 +57,17 @@
       }
 
       .text-bg-primary {
+        font-size: 15px;
+      }
+
+      .rounded {
+        width: 50px;
+        padding-top: 10px;
+      }
+
+      .btn-primary {
         font-size: 10px;
+        margin: 5px;
       }
     }
 
@@ -58,58 +82,68 @@
 <body>
 
   <!-- Navbar -->
-  <ul class="nav nav-tabs justify-content-center bg-primary">
-    <li class="nav-item">
-      <a href="#" onclick="fetchData('SENIN')" class="nav-link active">SENIN</a>
+  <ul id="myTab" role="tablist" class="nav nav-tabs justify-content-center bg-primary-subtle">
+    <li class="nav-item" role="presentation">
+      <a href="#" role="tab" onclick="fetchData('SENIN')" class="nav-link active" data-bs-toggle="tab">SENIN</a>
     </li>
-    <li class="nav-item">
-      <a href="#" onclick="fetchData('SELASA')" class="nav-link">SELASA</a>
+    <li class="nav-item" role="presentation">
+      <a href="#" role="tab" onclick="fetchData('SELASA')" class="nav-link" data-bs-toggle="tab">SELASA</a>
     </li>
-    <li class="nav-item">
-      <a href="#" onclick="fetchData('RABU')" class="nav-link">RABU</a>
+    <li class="nav-item" role="presentation">
+      <a href="#" role="tab" onclick="fetchData('RABU')" class="nav-link" data-bs-toggle="tab">RABU</a>
     </li>
-    <li class="nav-item">
-      <a href="#" onclick="fetchData('KAMIS')" class="nav-link">KAMIS</a>
+    <li class="nav-item" role="presentation">
+      <a href="#" role="tab" onclick="fetchData('KAMIS')" class="nav-link" data-bs-toggle="tab">KAMIS</a>
     </li>
-    <li class="nav-item">
-      <a href="#" onclick="fetchData('JUMAT')" class="nav-link">JUMAT</a>
+    <li class="nav-item" role="presentation">
+      <a href="#" role="tab" onclick="fetchData('JUMAT')" class="nav-link" data-bs-toggle="tab">JUMAT</a>
     </li>
-    <li class="nav-item">
-      <a href="#" onclick="fetchData('SABTU')" class="nav-link">SABTU</a>
+    <li class="nav-item" role="presentation">
+      <a href="#" role="tab" onclick="fetchData('SABTU')" class="nav-link" data-bs-toggle="tab">SABTU</a>
     </li>
   </ul>
   <!-- Navbar End -->
 
   <!-- Judul di sini -->
   <div class="sticky-top bg-primary mt-1 py2 align-middle" style="height: 14vh;">
-    <img src="LOGO PROVINSI.png" alt="logo provinsi" class="rounded float-start m-1" width="75">
-    <img src="LOGO SEKOLAH.png" alt="logo SEKOLAH" class="rounded float-end m-1" width="75">
-    <h3 class="text-center text-bg-primary">LAPORAN KBM HARIAN SMKN 8 BONE</h3>
-    <h4 class="text-center text-bg-primary" id="date"></h4>
+    <img src="LOGO PROVINSI.png" alt="logo provinsi" class="rounded float-start m-1 ms-5 pt-2" width="75">
+    <img src="LOGO SEKOLAH.png" alt="logo SEKOLAH" class="rounded float-end m-1 me-5 pt-2" width="75">
+    <h3 class="text-center text-bg-primary pt-3">LAPORAN KBM HARIAN SMKN 8 BONE</h3>
+    <h4 class="text-center text-white" id="date"></h4>
   </div>
-
   <!-- judul end -->
 
-  <!-- Tombol Print disini -->
-  <div class="text-end">
-    <button class="btn btn-primary mx-sm-1" onclick="printPage()">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer"
-        viewBox="0 0 16 16">
-        <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1" />
-        <path
-          d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1" />
-      </svg>
-      Print Tabel
-      <button class="btn btn-primary mx-1" onclick="exportPage()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save"
-          viewBox="0 0 16 16">
-          <path
-            d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z" />
-        </svg>
-        Export Tabel
-      </button>
+  <!-- Tombol Print dan search disini -->
+  <div class="container-fluid">
+    <div class="row align-items-end">
+      <div class="col-auto me-auto">
+        <div class="form-floating">
+          <input type="text" class="form-control" id="floatingInput" placeholder="Cari Data Guru">
+          <label for="floatingInput">Cari Data Guru</label>
+        </div>
+      </div>
+      <div class="col-3 col-md-auto">
+        <button class="btn btn-primary btn-lg" onclick="printPage()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer"
+            viewBox="0 0 16 16">
+            <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1" />
+            <path
+              d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1" />
+          </svg>
+          Print
+        </button>
+        <button class="btn btn-primary btn-lg" onclick="exportPage()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save"
+            viewBox="0 0 16 16">
+            <path
+              d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z" />
+          </svg>
+          Excel
+        </button>
+      </div>
+    </div>
   </div>
-  <!-- Tombol Print end -->
+  <!-- Tombol Print dan search end -->
 
   <!-- Table disini -->
   <div class="table-responsive table-wrapper">
@@ -155,38 +189,48 @@
         url += `?day=${day}`;
       }
 
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
+      const tabs = document.querySelectorAll('.nav-link');
+      tabs.forEach(tab => tab.classList.remove('active'));
 
-          // Tampilkan tanggal jika data ada
-          const rawDate = new Date(data.tanggal);
-          const options = {
-            weekday: 'long',
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric',
-          };
-          const formattedDate = rawDate.toLocaleDateString('id-ID', options);
-          const sanitizedDate = formattedDate.replace(/[^a-zA-Z0-9\s-]/g, '').trim();
-          document.getElementById("date").textContent = `${formattedDate}`;
+      const activeTab = document.querySelector(`a[onclick="fetchData('${day}')"]`);
 
-          // Memastikan jika DataTable sudah diinisialisasi
-          if (!table) {
-            // Filter data berdasarkan hari
-            table = $("#example").DataTable({
-              ajax: url,
-              dom: 'rtip',
-              buttons: [
-                {
-                  extend: 'print',
-                  customize: function (win) {
-                    $(win.document.body).css('font-size', '10pt');
-                    $(win.document.body).find('table').addClass('table table-bordered');
-                    // $(win.document.body).find('h1').addClass('text-center').text('Laporan KBM Harian SMKN 8 Bone');
-                    // $(win.document.body).find('h4').addClass('text-center mt-2').text(formattedDate);
+      if (activeTab) {
+        activeTab.classList.add('active')
+      }
+      $('#example').addClass('fade').removeClass('show');
+      setTimeout(() => {
 
-                    $(win.document.body).prepend(`
+
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+
+            // Tampilkan tanggal jika data ada
+            const rawDate = new Date(data.tanggal);
+            const options = {
+              weekday: 'long',
+              day: '2-digit',
+              month: 'long',
+              year: 'numeric',
+            };
+            const formattedDate = rawDate.toLocaleDateString('id-ID', options);
+            const sanitizedDate = formattedDate.replace(/[^a-zA-Z0-9\s-]/g, '').trim();
+            document.getElementById("date").textContent = `${formattedDate}`;
+
+            // Memastikan jika DataTable sudah diinisialisasi
+            if (!table) {
+              // Filter data berdasarkan hari
+              table = $("#example").DataTable({
+                ajax: url,
+                dom: 'rtip',
+                buttons: [
+                  {
+                    extend: 'print',
+                    customize: function (win) {
+                      $(win.document.body).css('font-size', '10pt');
+                      $(win.document.body).find('table').addClass('table table-bordered');
+
+                      $(win.document.body).prepend(`
                       <div class="d-flex justify-content-between m-4">
                         <img src="./LOGO PROVINSI.png" width="75" height="75">
                         <div class="text-center">
@@ -197,143 +241,152 @@
                       </div>
                         
                     `);
-                  }
-                },
-                {
-                  extend: 'excel',
-                  text: 'Export Excel',
-                  title: `HARIAN KBM SMKN 8 BONE - ${sanitizedDate}`,
-                  exportOptions: {
-                    columns: ':visible'
+                    }
                   },
-                  customize: function (xlsx) {
-                    const sheet = xlsx.xl.worksheets['sheet1.xml'];
-                    $('row c[r^="A"]', sheet).attr('s', '42');
+                  {
+                    extend: 'excel',
+                    text: 'Export Excel',
+                    title: `HARIAN KBM SMKN 8 BONE - ${sanitizedDate}`,
+                    exportOptions: {
+                      columns: ':visible'
+                    },
+                    customize: function (xlsx) {
+                      const sheet = xlsx.xl.worksheets['sheet1.xml'];
+                      $('row c[r^="A"]', sheet).attr('s', '42');
+                    }
                   }
-                }
-              ],
-              pageLength: -1, // Tampilkan semua data secara default
-              columns: [
-                {
-                  title: "NO",
-                  data: "1",
-                  className: "text-center",
-                },
-                {
-                  title: "KELAS",
-                  data: "2",
-                  className: "text-center",
-                },
-                {
-                  title: "MULAI JAM KE",
-                  data: "3",
-                  class: "text-center",
-                },
-                {
-                  title: "NAMA GURU MAPEL",
-                  data: "4",
-                },
-                {
-                  title: "MATA PELAJARAN",
-                  data: "5",
-                },
-                {
-                  title: "NAMA WALI KELAS",
-                  data: "6",
-                },
-                {
-                  title: "HADIR",
-                  data: "7",
-                  className: "text-center",
-                },
-                {
-                  title: "SAKIT",
-                  data: "8",
-                  className: "text-center",
-                },
-                {
-                  title: "IZIN",
-                  data: "9",
-                  className: "text-center",
-                },
-                {
-                  title: "ALPA",
-                  data: "10",
-                  className: "text-center",
-                },
-                {
-                  title: "KONDISI KELAS",
-                  data: "11",
-                },
-                {
-                  title: "DOKUMENTASI 1",
-                  data: "12",
-                  render: renderDoc
-                },
-                {
-                  title: "DOKUMENTASI 2",
-                  data: "13",
-                  render: renderDoc
-                },
-                {
-                  title: "DOKUMENTASI 3",
-                  data: "14",
-                  render: renderDoc
-                },
-                {
-                  title: "DOKUMENTASI 4",
-                  data: "15",
-                  render: renderDoc
-                },
-                {
-                  title: "PIKET PENGGANTI",
-                  data: "16",
-                }
-              ],
-
-              rowId: "KELAS",
-              liveAjax: true,
-              createdRow: function (row, data, dataIndex) {
-                // Periksa Semua sel dalam Menu
-                let hasNoData = false;
-
-                $('td', row).each(function (index, cell) {
-                  if ($(cell).text() === "?") {
-                    hasNoData = true;
+                ],
+                pageLength: -1, // Tampilkan semua data secara default
+                columns: [
+                  {
+                    title: "NO",
+                    data: "1",
+                    className: "text-center",
+                  },
+                  {
+                    title: "KELAS",
+                    data: "2",
+                    className: "text-center",
+                  },
+                  {
+                    title: "MULAI JAM KE",
+                    data: "3",
+                    class: "text-center",
+                  },
+                  {
+                    title: "NAMA GURU MAPEL",
+                    data: "4",
+                  },
+                  {
+                    title: "MATA PELAJARAN",
+                    data: "5",
+                  },
+                  {
+                    title: "NAMA WALI KELAS",
+                    data: "6",
+                  },
+                  {
+                    title: "HADIR",
+                    data: "7",
+                    className: "text-center",
+                  },
+                  {
+                    title: "SAKIT",
+                    data: "8",
+                    className: "text-center",
+                  },
+                  {
+                    title: "IZIN",
+                    data: "9",
+                    className: "text-center",
+                  },
+                  {
+                    title: "ALPA",
+                    data: "10",
+                    className: "text-center",
+                  },
+                  {
+                    title: "KONDISI KELAS",
+                    data: "11",
+                  },
+                  {
+                    title: "DOKUMENTASI 1",
+                    data: "12",
+                    render: renderDoc
+                  },
+                  {
+                    title: "DOKUMENTASI 2",
+                    data: "13",
+                    render: renderDoc
+                  },
+                  {
+                    title: "DOKUMENTASI 3",
+                    data: "14",
+                    render: renderDoc
+                  },
+                  {
+                    title: "DOKUMENTASI 4",
+                    data: "15",
+                    render: renderDoc
+                  },
+                  {
+                    title: "PIKET PENGGANTI",
+                    data: "16",
                   }
-                });
-                if (hasNoData) {
-                  $(row).addClass('bg-danger text-white');
-                } else {
-                  $(row).removeClass('bg-danger text-white');
-                }
-              },
-            });
-            table.on('xhr', function () {
+                ],
+                rowId: "KELAS",
+                liveAjax: true,
+                createdRow: function (row, data, dataIndex) {
+                  // Periksa Semua sel dalam Menu
+                  let hasNoData = false;
 
+                  $('td', row).each(function (index, cell) {
+                    if ($(cell).text() === "?") {
+                      hasNoData = true;
+                    }
+                  });
+                  if (hasNoData) {
+                    $(row).addClass('bg-danger text-white');
+                  } else {
+                    $(row).removeClass('bg-danger text-white');
+                  }
+                },
+              });
+              table.on('xhr', function () {
+                loadingData.classList.add("fade-out");
+                setTimeout(() => {
+                  loadingData.style.display = "none";
+                  loadingData.style.zIndex = "-1";
+                }, 1000);
+              });
+            } else {
+              table.clear();
+              table.rows.add(data.data).draw();
               loadingData.classList.add("fade-out");
               setTimeout(() => {
                 loadingData.style.display = "none";
                 loadingData.style.zIndex = "-1";
               }, 1000);
-            });
-          } else {
-            table.clear();
-            table.rows.add(data.data).draw();
-            loadingData.classList.add("fade-out");
-            setTimeout(() => {
-              loadingData.style.display = "none";
-              loadingData.style.zIndex = "-1";
-            }, 1000);
-          }
-        }).catch(error => {
-          console.error("Ada yang salah nih BOSKUU:", error);
-          swal("Error", "Terjadi kesalahan saat mengambil data", "error");
-        });
+            }
+            $('#example').removeClass('fade').addClass('fade show');
+          }).catch(error => {
+            console.error("Ada yang salah nih BOSKUU:", error);
+            swal("Error", "Terjadi kesalahan saat mengambil data", "error");
+          });
+      }, 500);
     }
 
     function renderDoc(data) {
-      return data === "?" || !data ? "?" : `<a href="${data}" target="_blank">Lihat Dokumentasi</a>`;
+      console.log(data);
+      if (!data || data === "?") return "?";
+
+      const directLink = data.replace(/https:\/\/drive\.google\.com\/open\?id=/, "https://drive.google.com/uc?export=view&id=");
+      console.log("ini adalah directlink", directLink);
+      return `
+      <a href="${data}" target="_blank">
+        <img src="${directLink}" alt="Dokumentasi" class="img-thumbnail">
+      </a>
+      `;
     }
 
     function setDefaultDay() {
@@ -357,10 +410,9 @@
       fetchData($(this).val());
     });
 
-    // setInterval(() => {
-    //   fetchData($("#floatingSelect").val());
-    // }, 60000);
-
+    $("#floatingInput").on("keyup", function () {
+      table.search(this.value).draw();
+    });
   </script>
 </body>
 

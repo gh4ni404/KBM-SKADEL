@@ -113,33 +113,32 @@
   <!-- judul end -->
 
   <!-- Tombol Print dan search disini -->
-  <div class="container-fluid">
-    <div class="row align-items-end">
-      <div class="col-auto me-auto">
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingInput" placeholder="Cari Data Guru">
-          <label for="floatingInput">Cari Data Guru</label>
-        </div>
+  <div class="d-flex justify-content-between mt-2 align-items-center bg-warning">
+    <div class="me-auto">
+      <div class="form-floating form-control-sm">
+        <input type="text" class="form-control form-control-sm" style="height: 45px;" id="floatingInput"
+          placeholder="Cari Data Guru">
+        <label for="floatingInput">Cari Data Guru</label>
       </div>
-      <div class="col-3 col-md-auto">
-        <button class="btn btn-primary btn-lg" onclick="printPage()">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer"
-            viewBox="0 0 16 16">
-            <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1" />
-            <path
-              d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1" />
-          </svg>
-          Print
-        </button>
-        <button class="btn btn-primary btn-lg" onclick="exportPage()">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save"
-            viewBox="0 0 16 16">
-            <path
-              d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z" />
-          </svg>
-          Excel
-        </button>
-      </div>
+    </div>
+    <div class="p-2">
+      <button class="btn btn-primary btn-lg" onclick="printPage()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer"
+          viewBox="0 0 16 16">
+          <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1" />
+          <path
+            d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1" />
+        </svg>
+        Print
+      </button>
+      <button class="btn btn-primary btn-lg" onclick="exportPage()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save"
+          viewBox="0 0 16 16">
+          <path
+            d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z" />
+        </svg>
+        Excel
+      </button>
     </div>
   </div>
   <!-- Tombol Print dan search end -->
@@ -386,9 +385,8 @@
       // const image = new Image();
       // image.src = imageUrl;
       return `
-    <a href="${imageUrl}" target="_blank">
-      <img src ="${imageUrl}" alt="Dokumentasi" class="img-thumbnail">
-      Lihat dokumentasi      
+    <a href="${data}" target="_blank">
+      <img src ="${imageUrl}" alt="Dokumentasi" class="img-thumbnail">      
     </a>
   `;
     }

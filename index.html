@@ -12,146 +12,63 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
 
-  <style>
-    .nav-tabs .nav-link {
-      font-size: 13px;
-    }
-
-    @media (max-width: 576px) {
-      .nav-tabs .nav-link {
-        padding: 5px 10px
-      }
-
-      .rounded {
-        width: 50px;
-        padding-top: 10px;
-      }
-
-      .btn-primary {
-        font-size: 10px;
-        margin: 5px;
-      }
-
-      .text-light {
-        font-size: 15px;
-      }
-    }
-
-    @media (min-width: 768px) {
-      .nav-tabs .nav-link {
-        font-size: 16px;
-      }
-
-      #example {
-        font-size: 14px;
-      }
-    }
-
-    @media (min-width: 992px) {
-      .nav-tabs .nav-link {
-        font-size: 20px;
-      }
-
-      #example {
-        font-size: 16px;
-      }
-    }
-
-    .table-wrapper {
-      position: relative;
-      overflow-x: scroll;
-      height: 73vh;
-    }
-
-    .fade-out {
-      animation: fadeOut 1s forwards;
-    }
-
-    .fade-in {
-      animation: fadeIn 1s forwards;
-    }
-
-    @keyframes fadeOut {
-      0% {
-        opacity: 1;
-      }
-
-      100% {
-        opacity: 0;
-      }
-    }
-
-    @keyframes fadeIn {
-      0% {
-        opacity: 0;
-      }
-
-      100% {
-        opacity: 1;
-      }
-    }
-
-    #example thead th {
-      background-color: #343a40;
-      color: white;
-      font-size: 12px;
-      vertical-align: middle;
-    }
-  </style>
+  <link rel="stylesheet" href="./animation.css">
   <title>KBM SKADEL</title>
 </head>
 
 <body>
-  <!-- Navbar -->
-  <ul id="myTab" role="tablist" class="nav nav-tabs justify-content-center bg-primary-subtle">
-    <li class="nav-item" role="presentation">
-      <a href="#" role="tab" onclick="fetchData('SENIN')" class="nav-link active" data-bs-toggle="tab">SENIN</a>
-    </li>
-    <li class="nav-item" role="presentation">
-      <a href="#" role="tab" onclick="fetchData('SELASA')" class="nav-link" data-bs-toggle="tab">SELASA</a>
-    </li>
-    <li class="nav-item" role="presentation">
-      <a href="#" role="tab" onclick="fetchData('RABU')" class="nav-link" data-bs-toggle="tab">RABU</a>
-    </li>
-    <li class="nav-item" role="presentation">
-      <a href="#" role="tab" onclick="fetchData('KAMIS')" class="nav-link" data-bs-toggle="tab">KAMIS</a>
-    </li>
-    <li class="nav-item" role="presentation">
-      <a href="#" role="tab" onclick="fetchData('JUMAT')" class="nav-link" data-bs-toggle="tab">JUMAT</a>
-    </li>
-    <li class="nav-item" role="presentation">
-      <a href="#" role="tab" onclick="fetchData('SABTU')" class="nav-link" data-bs-toggle="tab">SABTU</a>
-    </li>
-  </ul>
-  <!-- Navbar End -->
+  <div class="bg-warning-subtle d-vh">
+    <!-- Navbar -->
+    <div>
+      <ul id=" myTab" role="tablist" class="nav nav-tabs justify-content-center bg-primary-subtle">
+        <li class="nav-item" role="presentation">
+          <a href="#" role="tab" onclick="fetchData('SENIN')" class="nav-link fs-7 active"
+            data-bs-toggle="tab">SENIN</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a href="#" role="tab" onclick="fetchData('SELASA')" class="nav-link fs-7" data-bs-toggle="tab">SELASA</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a href="#" role="tab" onclick="fetchData('RABU')" class="nav-link fs-7" data-bs-toggle="tab">RABU</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a href="#" role="tab" onclick="fetchData('KAMIS')" class="nav-link fs-7" data-bs-toggle="tab">KAMIS</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a href="#" role="tab" onclick="fetchData('JUMAT')" class="nav-link fs-7" data-bs-toggle="tab">JUMAT</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a href="#" role="tab" onclick="fetchData('SABTU')" class="nav-link fs-7" data-bs-toggle="tab">SABTU</a>
+        </li>
+      </ul>
+    </div>
+    <!-- Navbar End -->
 
-  
-  <div class="bg-warning-subtle">
     <!-- Judul di sini -->
-    <div class="d-flex mt-1 justify-content-center align-items-center flex-md-nowrap">
-      <div class="ps-1 pb-2">
-        <img src="LOGO PROVINSI.png" alt="logo provinsi" class="rounded" width="75">
+    <div class="d-flex my-2 justify-content-evenly align-items-center">
+      <div class="p-1">
+        <img src="LOGO PROVINSI.png" alt="logo provinsi" class="img-fluid img-size" width="100">
       </div>
-      <div class="pt-1 mx-4">
-        <h3 class="text-center fw-bold">LAPORAN KBM HARIAN SMKN 8 BONE</h3>
-        <h4 class="text-center fs-md-6" id="date"></h4>
+      <div class="p-1">
+        <h3 class="text-center fw-bold fs-7 mb-0 pb-0">LAPORAN KBM HARIAN SMKN 8 BONE</h3>
+        <h4 class="text-center fs-7 pt-0 mb-0" id="date"></h4>
       </div>
-      <div class="pe-1 pb-2">
-        <img src="LOGO SEKOLAH.png" alt="logo SEKOLAH" class="rounded" width="75">
+      <div class="p-1">
+        <img src="LOGO SEKOLAH.png" alt="logo SEKOLAH" class="img-fluid img-size" width="100">
       </div>
     </div>
     <!-- judul end -->
 
     <!-- Tombol Print dan search disini -->
-    <div class="d-flex justify-content-between align-items-center flex-md-nowrap">
+    <div class="d-flex my-0 justify-content-between align-items-center flex-md-nowrap bg-body-tertiary">
       <div class="me-auto">
-        <div class="form-floating form-control-sm">
+        <div class="form-floating form-control-sm p-0 ms-1 ms-md-2 ms-lg-2 m-s-0">
           <input type="text" class="form-control form-control-sm" style="height: 45px;" id="floatingInput"
             placeholder="Cari Data Guru">
           <label for="floatingInput">Cari Data Guru</label>
         </div>
       </div>
-      <div class="p-2">
+      <div class="p-1">
         <button class="btn btn-secondary" onclick="printPage()">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer"
             viewBox="0 0 16 16">
@@ -161,7 +78,7 @@
           </svg>
         </button>
       </div>
-      <div class="p-2">
+      <div class="p-1 me-3 m-e-0">
         <button class="btn btn-info" onclick="exportPage()">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save"
             viewBox="0 0 16 16">
@@ -175,8 +92,15 @@
   </div>
 
   <!-- Table disini -->
-  <div class="table-responsive table-wrapper">
-    <table id="example" class="table table-bordered align-middle" style="width: 100%"></table>
+  <div class="table-container position-relative ">
+    <div class="loading-overlay d-none">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loding...</span>
+      </div>
+    </div>
+    <div class="table-responsive table-wrapper">
+      <table id="example" class="table table-bordered align-middle" style="width: 100%"></table>
+    </div>
   </div>
   <!-- Table End -->
 
@@ -222,14 +146,16 @@
       tabs.forEach(tab => tab.classList.remove('active'));
 
       const activeTab = document.querySelector(`a[onclick="fetchData('${day}')"]`);
-
       if (activeTab) {
-        activeTab.classList.add('active')
+        activeTab.classList.add('active');
       }
+
+      const tableWrapper = document.querySelector('.table-wrapper');
+      tableWrapper.classList.remove('fade-in');
+      tableWrapper.classList.remove('fade-out');
+
       $('#example').addClass('fade').removeClass('show');
       setTimeout(() => {
-
-
         fetch(url)
           .then(response => response.json())
           .then(data => {
@@ -251,11 +177,11 @@
               // Filter data berdasarkan hari
               table = $("#example").DataTable({
                 ajax: url,
-                responsive: true,
                 dom: 'rtip',
                 buttons: [
                   {
                     extend: 'print',
+                    title: '',
                     customize: function (win) {
                       $(win.document.body).css('font-size', '10pt');
                       $(win.document.body).find('table').addClass('table table-bordered');
@@ -368,7 +294,6 @@
                 createdRow: function (row, data, dataIndex) {
                   // Periksa Semua sel dalam Menu
                   let hasNoData = false;
-
                   $('td', row).each(function (index, cell) {
                     if ($(cell).text() === "?") {
                       hasNoData = true;

@@ -309,7 +309,7 @@
 
               setInterval(function () {
                 table.ajax.reload(null, false);
-              }, 1000);
+              }, 60000);
 
               table.on('xhr', function () {
                 loadingData.classList.add("fade-out");

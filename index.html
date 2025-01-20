@@ -18,6 +18,23 @@
 
 <body>
   <div class="bg-warning-subtle d-vh">
+
+
+    <!-- Judul di sini -->
+    <div class="d-flex pt-2 justify-content-evenly align-items-center">
+      <div class="p-1">
+        <img src="LOGO PROVINSI.png" alt="logo provinsi" class="img-fluid img-size" width="100">
+      </div>
+      <div class="p-1">
+        <h3 class="text-center fw-bold fs-7 mb-0 pb-0">LAPORAN KBM HARIAN SMKN 8 BONE</h3>
+        <h4 class="text-center fs-7 pt-0 mb-0" id="date"></h4>
+      </div>
+      <div class="p-1">
+        <img src="LOGO SEKOLAH.png" alt="logo SEKOLAH" class="img-fluid img-size" width="100">
+      </div>
+    </div>
+    <!-- judul end -->
+
     <!-- Navbar -->
     <div>
       <ul id=" myTab" role="tablist" class="nav nav-tabs justify-content-center bg-primary-subtle">
@@ -43,21 +60,6 @@
       </ul>
     </div>
     <!-- Navbar End -->
-
-    <!-- Judul di sini -->
-    <div class="d-flex my-2 justify-content-evenly align-items-center">
-      <div class="p-1">
-        <img src="LOGO PROVINSI.png" alt="logo provinsi" class="img-fluid img-size" width="100">
-      </div>
-      <div class="p-1">
-        <h3 class="text-center fw-bold fs-7 mb-0 pb-0">LAPORAN KBM HARIAN SMKN 8 BONE</h3>
-        <h4 class="text-center fs-7 pt-0 mb-0" id="date"></h4>
-      </div>
-      <div class="p-1">
-        <img src="LOGO SEKOLAH.png" alt="logo SEKOLAH" class="img-fluid img-size" width="100">
-      </div>
-    </div>
-    <!-- judul end -->
 
     <!-- Tombol Print dan search disini -->
     <div class="d-flex my-0 justify-content-between align-items-center flex-md-nowrap bg-body-tertiary">
@@ -306,6 +308,11 @@
                   }
                 },
               });
+
+              setInterval(function () {
+                table.ajax.reload(null, false);
+              }, 1000);
+
               table.on('xhr', function () {
                 loadingData.classList.add("fade-out");
                 setTimeout(() => {
@@ -337,9 +344,6 @@
       console.log(data);
       const imageUrl = data.replace("https://drive.google.com/open?id=", "https://drive.google.com/thumbnail?id=");
 
-      // const validImageType = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
-      // const image = new Image();
-      // image.src = imageUrl;
       return `
       <div class="text-center">
         <a href="${data}" target="_blank">

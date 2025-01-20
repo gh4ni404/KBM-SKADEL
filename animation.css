@@ -68,11 +68,11 @@
 
 @media (max-width: 575.98px) {
   .table-wrapper {
-    height: 75vh;
+    height: 77vh;
   }
 
   .d-vh {
-    height: 25vh;
+    height: 23vh;
   }
 
   .fs-7 {
@@ -80,9 +80,18 @@
     padding: 5px;
   }
 
+  .fs-relative{
+    font-size: 18px;
+  }
+
   .m-y-0 {
-    margin-top: 1px;
-    margin-bottom: 1px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+
+  .py-relative{
+    padding-top: 18px;
+    padding-bottom: 18px;
   }
 
   #example thead th {
@@ -108,11 +117,16 @@
 
 @media (min-width: 576px) and (max-width: 767.98px) {
   .table-wrapper {
-    height: auto;
+    height: 70vh;
   }
 
   .d-vh {
-    height: 32vh;
+    height: 30vh;
+  }
+
+  .py-relative{
+    padding-top: 18px;
+    padding-bottom: 18px;
   }
 
   .img-size {

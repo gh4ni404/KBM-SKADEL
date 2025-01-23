@@ -80,7 +80,7 @@
     padding: 5px;
   }
 
-  .fs-relative{
+  .fs-relative {
     font-size: 18px;
   }
 
@@ -89,7 +89,7 @@
     margin-bottom: 8px;
   }
 
-  .py-relative{
+  .py-relative {
     padding-top: 18px;
     padding-bottom: 18px;
   }
@@ -124,7 +124,7 @@
     height: 30vh;
   }
 
-  .py-relative{
+  .py-relative {
     padding-top: 18px;
     padding-bottom: 18px;
   }
@@ -184,12 +184,43 @@
   }
 
   .img-size {
-    width: 100px;
+    width: 50px;
     height: auto;
   }
 
   .m-y-0 {
     margin-top: 6px;
     margin-bottom: 6px;
+  }
+
+  .fs-7 {
+    font-size: 12px;
+    padding: 5px;
+  }
+
+  .fs-relative {
+    font-size: 18px;
+  }
+
+  #imgFluid {
+    max-width: 100px;
+    max-height: 100px;
+  }
+
+  #example thead th {
+    background-color: #343a40;
+    color: white;
+    font-size: 10px;
+    vertical-align: middle;
+    text-align: center;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  #example tbody td {
+    font-size: 10px;
+    vertical-align: middle;
+    padding-top: 2px;
+    padding-bottom: 2px;
   }
 }

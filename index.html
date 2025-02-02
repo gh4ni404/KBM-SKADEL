@@ -177,7 +177,7 @@
               // Filter data berdasarkan hari
               table = $("#example").DataTable({
                 ajax: url,
-                dom: 'rtip',
+                dom: 'Bfrtip',
                 buttons: [
                   {
                     extend: 'print',
@@ -205,8 +205,8 @@
                     exportOptions: {
                       columns: ':visible'
                     },
-                    customize: function (xlsx) {
-                      const sheet = xlsx.xl.worksheets['sheet1.xml'];
+                    customize: function (xls) {
+                      const sheet = xls.xl.worksheets['sheet1.xml'];
                       $('row c[r^="A"]', sheet).attr('s', '42');
                     }
                   }
@@ -359,6 +359,7 @@
     }
 
     function printPage() {
+      // table.button(0).trigger();
       table.button(0).trigger();
     }
     function exportPage() {

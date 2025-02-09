@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- UPDATE CSS here -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+
+  <link rel="stylesheet" href="./animation.css">
+  <title>KBM SKADEL</title>
+</head>
+
+<body>
+  <div class="container-fluid bg-warning-subtle d-vh">
+    <!-- Judul di sini -->
+    <div class="d-flex py-relative justify-content-evenly align-items-center">
+      <div class="p-1">
+        <img src="LOGO PROVINSI.png" alt="logo provinsi" class="img-fluid img-size" width="100">
+      </div>
+      <div class="p-1">
+        <h3 class="text-center fw-bold fs-relative mb-0 pb-0">LAPORAN KBM HARIAN SMKN 8 BONE</h3>
+        <h4 class="text-center fs-relative pt-0 mb-0" id="date"></h4>
+      </div>
+      <div class="p-1">
+        <img src="LOGO SEKOLAH.png" alt="logo SEKOLAH" class="img-fluid img-size" width="100">
+      </div>
+    </div>
+    <!-- judul end -->
+
+    <!-- Navbar -->
+    <div>
+      <ul id=" myTab" role="tablist" class="nav nav-tabs justify-content-center bg-primary-subtle">
+        <li class="nav-item" role="presentation">
+          <a href="#" role="tab" onclick="fetchData('SENIN')" class="nav-link fs-7 active"
+            data-bs-toggle="tab">SENIN</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a href="#" role="tab" onclick="fetchData('SELASA')" class="nav-link fs-7" data-bs-toggle="tab">SELASA</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a href="#" role="tab" onclick="fetchData('RABU')" class="nav-link fs-7" data-bs-toggle="tab">RABU</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a href="#" role="tab" onclick="fetchData('KAMIS')" class="nav-link fs-7" data-bs-toggle="tab">KAMIS</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a href="#" role="tab" onclick="fetchData('JUMAT')" class="nav-link fs-7" data-bs-toggle="tab">JUMAT</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a href="#" role="tab" onclick="fetchData('SABTU')" class="nav-link fs-7" data-bs-toggle="tab">SABTU</a>
+        </li>
+      </ul>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Tombol Print dan search disini -->
+    <div class="d-flex my-1 justify-content-between align-items-center flex-md-nowrap bg-body-tertiary position-static">
+      <div class="me-auto">
+        <div class="form-floating form-control-sm py-1 ms-1 ms-md-2 ms-lg-2 m-s-0">
+          <input type="text" class="form-control form-control-sm" style="height: 45px;" id="floatingInput"
+            placeholder="Cari Data Guru">
+          <label for="floatingInput">Cari Data Guru</label>
+        </div>
+      </div>
+      <div class="p-1">
+        <button class="btn btn-secondary" onclick="printPage()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer"
+            viewBox="0 0 16 16">
+            <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1" />
+            <path
+              d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1" />
+          </svg>
+        </button>
+      </div>
+      <div class="p-1 me-3 m-e-0">
+        <button class="btn btn-info" onclick="exportPage()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save"
+            viewBox="0 0 16 16">
+            <path
+              d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!-- Tombol Print dan search end -->
+  </div>
+
+  <!-- Table disini -->
+  <div class="table-container position-relative ">
+    <div class="loading-overlay d-none">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loding...</span>
+      </div>
+    </div>
+    <div class="table-responsive table-wrapper">
+      <table id="example" class="table table-bordered align-middle" style="width: 100%"></table>
+    </div>
+  </div>
+  <!-- Table End -->
+
+  <!-- Loading Spinner Disini-->
+  <div id="loading"
+    class="text-center position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-light"
+    style="display: block; z-index: 1000;">
+    <div class="spinner-border m-2" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-3">Memuat, Harap tunggu...</p>
+  </div>
+  <!-- Loading Spinner End -->
+
+  <!-- Update JSS Link here -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+  <!-- DataTables Buttons JS -->
+  <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.bootstrap5.min.js"></script>
+  <!-- Export Buttons -->
+  <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+  <!-- JSZip (untuk Export Excel) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+  <script type="text/javascript">
+    const baseUrl = "https://script.google.com/macros/s/AKfycbwxxDPptmg0b4BlIJJ-pie4POoeMIJjQGFEsHj7oAHHTU3YEEK9c2CCQb1n2D4UxB5YOg/exec";
+    const days = ["MINGGU", "SENIN", "SELASA", "RABU", "KAMIS", "JUMAT", "SABTU"];
+    const loadingData = document.getElementById("loading");
+
+    let table;
+
+    function fetchData(day) {
+      let url = baseUrl;
+      if (day) {
+        url += `?day=${day}`;
+      }
+
+      const tabs = document.querySelectorAll('.nav-link');
+      tabs.forEach(tab => tab.classList.remove('active'));
+
+      const activeTab = document.querySelector(`a[onclick="fetchData('${day}')"]`);
+      if (activeTab) {
+        activeTab.classList.add('active');
+      }
+
+      const tableWrapper = document.querySelector('.table-wrapper');
+      tableWrapper.classList.remove('fade-in');
+      tableWrapper.classList.remove('fade-out');
+
+      $('#example').addClass('fade').removeClass('show');
+      setTimeout(() => {
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+
+            // Tampilkan tanggal jika data ada
+            const rawDate = new Date(data.tanggal);
+            const options = {
+              weekday: 'long',
+              day: '2-digit',
+              month: 'long',
+              year: 'numeric',
+            };
+            const formattedDate = rawDate.toLocaleDateString('id-ID', options);
+            const sanitizedDate = formattedDate.replace(/[^a-zA-Z0-9\s-]/g, '').trim();
+            document.getElementById("date").textContent = `${formattedDate}`;
+
+            // Memastikan jika DataTable sudah diinisialisasi
+            if (!table) {
+              // Filter data berdasarkan hari
+              table = $("#example").DataTable({
+                ajax: url,
+                dom: 'Bfrtip',
+                buttons: [
+                  {
+                    extend: 'print',
+                    title: '',
+                    customize: function (win) {
+                      $(win.document.body).css('font-size', '10pt');
+                      $(win.document.body).find('table').addClass('table table-bordered');
+
+                      $(win.document.body).prepend(`
+                      <div class="d-flex justify-content-between m-4">
+                        <img src="./LOGO PROVINSI.png" width="75" height="75">
+                        <div class="text-center">
+                          <h1>Laporan KBM Harian SMKN 8 Bone</h1>
+                          <h4>${formattedDate}</h4>
+                        </div>
+                        <img src="./LOGO SEKOLAH.png" width="75" height="75">
+                      </div>
+                    `);
+                    }
+                  },
+                  {
+                    extend: 'excel',
+                    text: 'Export Excel',
+                    title: `HARIAN KBM SMKN 8 BONE - ${sanitizedDate}`,
+                    exportOptions: {
+                      columns: ':visible'
+                    },
+                    customize: function (xls) {
+                      const sheet = xls.xl.worksheets['sheet1.xml'];
+                      $('row c[r^="A"]', sheet).attr('s', '42');
+                    }
+                  }
+                ],
+                pageLength: -1, // Tampilkan semua data secara default
+                columns: [
+                  {
+                    title: "NO",
+                    data: "1",
+                    className: "text-center",
+                  },
+                  {
+                    title: "KELAS",
+                    data: "2",
+                    className: "text-center",
+                  },
+                  {
+                    title: "MULAI JAM KE",
+                    data: "3",
+                    class: "text-center",
+                  },
+                  {
+                    title: "NAMA GURU MAPEL",
+                    data: "4",
+                  },
+                  {
+                    title: "MATA PELAJARAN",
+                    data: "5",
+                  },
+                  {
+                    title: "NAMA WALI KELAS",
+                    data: "6",
+                  },
+                  {
+                    title: "HADIR",
+                    data: "7",
+                    className: "text-center",
+                  },
+                  {
+                    title: "SAKIT",
+                    data: "8",
+                    className: "text-center",
+                  },
+                  {
+                    title: "IZIN",
+                    data: "9",
+                    className: "text-center",
+                  },
+                  {
+                    title: "ALPA",
+                    data: "10",
+                    className: "text-center",
+                  },
+                  {
+                    title: "KONDISI KELAS",
+                    data: "11",
+                  },
+                  {
+                    title: "DOKUMENTASI 1",
+                    data: "12",
+                    render: renderDoc
+                  },
+                  {
+                    title: "DOKUMENTASI 2",
+                    data: "13",
+                    render: renderDoc
+                  },
+                  {
+                    title: "DOKUMENTASI 3",
+                    data: "14",
+                    render: renderDoc
+                  },
+                  {
+                    title: "DOKUMENTASI 4",
+                    data: "15",
+                    render: renderDoc
+                  },
+                  {
+                    title: "PIKET PENGGANTI",
+                    data: "16",
+                  }
+                ],
+                rowId: "KELAS",
+                liveAjax: true,
+                createdRow: function (row, data, dataIndex) {
+                  // Periksa Semua sel dalam Menu
+                  let hasNoData = false;
+                  $('td', row).each(function (index, cell) {
+                    if ($(cell).text() === "?") {
+                      hasNoData = true;
+                    }
+                  });
+                  if (hasNoData) {
+                    $(row).addClass('bg-danger text-white');
+                  } else {
+                    $(row).removeClass('bg-danger text-white');
+                  }
+                },
+              });
+
+              setInterval(function () {
+                table.ajax.reload(null, false);
+              }, 2000);
+
+              table.on('xhr', function () {
+                loadingData.classList.add("fade-out");
+                setTimeout(() => {
+                  loadingData.style.display = "none";
+                  loadingData.style.zIndex = "-1";
+                }, 1000);
+              });
+            } else {
+              table.clear();
+              table.rows.add(data.data).draw();
+              loadingData.classList.add("fade-out");
+              setTimeout(() => {
+                loadingData.style.display = "none";
+                loadingData.style.zIndex = "-1";
+              }, 1000);
+            }
+            $('#example').removeClass('fade').addClass('fade show');
+          }).catch(error => {
+            console.error("Ada yang salah nih BOSKUU:", error);
+            // swal("Error", "Terjadi kesalahan saat mengambil data", error);
+          });
+      }, 500);
+    }
+
+    function renderDoc(data) {
+      if (!data || data === "?") {
+        return "?";
+      }
+      console.log(data);
+      const imageUrl = data.replace("https://drive.google.com/open?id=", "https://drive.google.com/thumbnail?id=");
+
+      return `
+      <div class="text-center">
+        <a href="${data}" target="_blank">
+          <img src ="${imageUrl}" alt="Dokumentasi" id="imgFluid" class="img-fluid">      
+        </a>
+      </div>
+  `;
+    }
+
+    function setDefaultDay() {
+      const today = new Date().getDay();
+      const defaultDay = days[today === 0 ? 6 : today];
+      fetchData(defaultDay);
+      $("#floatingSelect").val(defaultDay).trigger("change");
+    }
+
+    function printPage() {
+      // table.button(0).trigger();
+      table.button(0).trigger();
+    }
+    function exportPage() {
+      table.button(1).trigger();
+    }
+
+    fetchData();
+    setDefaultDay();
+
+    $("#floatingSelect").change(function () {
+      fetchData($(this).val());
+    });
+
+    $("#floatingInput").on("keyup", function () {
+      table.search(this.value).draw();
+    });
+  </script>
+</body>
+
+</html>
